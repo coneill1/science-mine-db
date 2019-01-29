@@ -1,0 +1,7 @@
+# of encounters per venue
+
+# of total encounters per year
+
+Attendees for a venue by age range
+
+Memberships who visited venue prior to membership
