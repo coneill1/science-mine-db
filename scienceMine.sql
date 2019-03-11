@@ -37,7 +37,7 @@ DROP TABLE IF EXISTS `ScienceMine`.`Membership` ;
 
 CREATE TABLE IF NOT EXISTS `ScienceMine`.`Membership` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `membershipTypeId` INT UNSIGNED NOT NULL DEFAULT 'standard' COMMENT 'The value of this will be one of following:\n- Seasonal Membership\n- Annual Membership',
+  `membershipTypeId` INT UNSIGNED NOT NULL COMMENT 'The value of this will be one of following:\n- Seasonal Membership\n- Annual Membership',
   `isActive` BIT(1) NOT NULL,
   PRIMARY KEY (`id`, `membershipTypeId`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
@@ -56,14 +56,14 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ScienceMine`.`ContactInformation` ;
 
 CREATE TABLE IF NOT EXISTS `ScienceMine`.`ContactInformation` (
-  `Id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `phoneNumber` VARCHAR(10) NOT NULL,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `phoneNumber` VARCHAR(11) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   `companyName` VARCHAR(45) NULL,
   `street` VARCHAR(45) NULL,
-  `city` VARCHAR(45) NULL,
-  `zip` VARCHAR(10) NULL,
-  `state` VARCHAR(2) NULL,
+  `city` VARCHAR(45) NULL DEFAULT 'Butte',
+  `zip` VARCHAR(10) NULL DEFAULT '59701',
+  `state` VARCHAR(2) NULL DEFAULT 'MT',
   PRIMARY KEY (`Id`),
   UNIQUE INDEX `Id_UNIQUE` (`Id` ASC))
 ENGINE = InnoDB;
@@ -75,7 +75,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ScienceMine`.`AgeRange` ;
 
 CREATE TABLE IF NOT EXISTS `ScienceMine`.`AgeRange` (
-  `id` INT UNSIGNED NOT NULL,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `high` INT UNSIGNED NOT NULL,
   `low` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
@@ -89,7 +89,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ScienceMine`.`SpecialAccommodation` ;
 
 CREATE TABLE IF NOT EXISTS `ScienceMine`.`SpecialAccommodation` (
-  `id` INT UNSIGNED NOT NULL,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `type` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC))
@@ -168,13 +168,12 @@ DROP TABLE IF EXISTS `ScienceMine`.`IdCard` ;
 
 CREATE TABLE IF NOT EXISTS `ScienceMine`.`IdCard` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `QRCode` BLOB(45) NOT NULL,
+  `QRCode` BLOB NOT NULL,
   `dateIssued` DATETIME NOT NULL,
   `isActive` BIT(1) NOT NULL,
   `membershipId` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`, `membershipId`),
   INDEX `id_card_to_membership_fk_idx` (`membershipId` ASC),
-  UNIQUE INDEX `QRCode_UNIQUE` (`QRCode` ASC),
   CONSTRAINT `id_card_to_membership_fk`
     FOREIGN KEY (`membershipId`)
     REFERENCES `ScienceMine`.`Membership` (`id`)
@@ -223,9 +222,7 @@ CREATE TABLE IF NOT EXISTS `ScienceMine`.`Suspension` (
     REFERENCES `ScienceMine`.`Reason` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = DEFAULT;
-
+ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `ScienceMine`.`RenewalNotice`
@@ -445,7 +442,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ScienceMine`.`MembershipPeriod` ;
 
 CREATE TABLE IF NOT EXISTS `ScienceMine`.`MembershipPeriod` (
-  `id` INT UNSIGNED NOT NULL,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `membershipId` INT UNSIGNED NOT NULL,
   `start` DATETIME NOT NULL,
   `end` DATETIME NOT NULL,
