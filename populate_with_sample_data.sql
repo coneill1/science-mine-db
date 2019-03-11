@@ -766,3 +766,5 @@ VALUES ('Jordan',
        ('Maggie/Logan', 'Matteson', 1, 'male', 187, 185),
        ('Lawrence', 'Weirick (Family Outreach)', 1, 'male', 188, 186),
        ('T', 'McCullak', 1, 'male', 189, 187);
+
+call `addMember`('test2', 'test2', 30, null, 'male', null, 0, null, null, null, 'Butte', '59701', 'MT');
