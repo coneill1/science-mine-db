@@ -68,11 +68,8 @@ begin
   end if;
 end;
 
-select id into @id
-from Reason
-where lower(name) = 'other';
 drop procedure if exists `deleteEthnicity`;
-create procedure `deleteEthnicity)`(_id int, newName varchar(45))
+create procedure `deleteEthnicity`(_id int, newName varchar(45))
 begin
   # First check if ethnicity exists
   select id from `Ethnicity` where id = _id;
@@ -130,13 +127,13 @@ begin
   select name from MembershipType where lower(type) = lower(name);
   if (found_rows() = 0)
   then
-    insert into MembershipType (id)
+    insert into MembershipType (name)
     values (type);
   end if;
 end;
 
 drop procedure if exists `updateMembershipType`;
-create procedure `addMembershipType`(_id int, type varchar(45))
+create procedure `updateMembershipType`(_id int, type varchar(45))
 begin
   select id from MembershipType where _id = id;
   if (found_rows() = 1)

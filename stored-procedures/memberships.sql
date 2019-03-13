@@ -149,3 +149,40 @@ end;
 # Suspension END
 # #####################
 
+# ##################
+# DriverToMembership
+# ##################
+
+drop procedure if exists `addDriverToMembership`;
+create procedure `addDriverToMembership`(_membershipId int, _reasonId int, _staffId int, _venueId int, _otherReason varchar(45))
+begin
+  select id from `Membership` where id = _membershipId;
+  if (found_rows() = 1 and (select count(*) from `Reason` where id = _reasonId) = 1 and
+      (select count(*) from `Staff` where id = _staffId) = 1)
+  then
+    insert into `DriverToMembership` (reasonId, staffId, membershipId, venueId, otherReason)
+    values (_reasonId, _staffId, _membershipId, _venueId, _otherReason);
+  end if;
+end;
+
+drop procedure if exists `updateDriverToMembership`;
+create procedure `updateDriverToMembership`(_id int, _membershipId int, _reasonId int, _staffId int, _venueId int, _otherReason varchar(45))
+begin
+  select id from `DriverToMembership` where id = _id;
+  if (found_rows() = 1 and (select count(*) from `Reason` where id = _reasonId) = 1 and
+      (select count(*) from `Staff` where id = _staffId) = 1 and (select count(*) from `Membership` where id = _membershipId) = 1)
+  then
+    update `DriverToMembership`
+    set reasonId      = _reasonId,
+        staffId = _staffId,
+        membershipId = _membershipId,
+        venueId = _venueId,
+        otherReason = _otherReason
+    where id = _id;
+  end if;
+end;
+
+# ######################
+# DriverToMembership END
+# #####################
+

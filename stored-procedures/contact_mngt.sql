@@ -12,7 +12,7 @@ begin
   select id from Membership where id = _membershipId;
   if (found_rows() = 1 and (select count(*) from `PrimaryMember` where membershipId = _membershipId) = 0)
   then
-    call `addMember`(first, last, age, ethnicityName, gender, accommodation, phone, email, company, street, city, zip,
+    call `addMember`(_membershipId, first, last, age, ethnicityName, gender, accommodation, phone, email, company, street, city, zip,
                      state, @memberId);
     insert into PrimaryMember (memberId, membershipId)
     values (@memberId, _membershipId);
@@ -48,7 +48,7 @@ begin
   select memberId into @primaryMemberId from `PrimaryMember` where membershipId = _membershipId;
   if (found_rows() = 1 and (select count(*) from `PrimaryMember` where membershipId = _membershipId) = 1)
   then
-    call `addMember`(first, last, age, ethnicityName, gender, accommodation, phone, email, company, street, city, zip,
+    call `addMember`(_membershipId, first, last, age, ethnicityName, gender, accommodation, phone, email, company, street, city, zip,
                      state, @memberId);
     insert into `SecondaryMember` (memberId, primaryMemberId)
     values (@memberId, @primaryMemberId);
@@ -75,7 +75,7 @@ end;
 # ###########################
 
 drop procedure if exists `addMember`;
-create procedure `addMember`(first varchar(45), last varchar(45), age int, ethnicityName varchar(45),
+create procedure `addMember`(_membershipId int, first varchar(45), last varchar(45), age int, ethnicityName varchar(45),
                              _gender enum ('male', 'female'), accommodation varchar(45), phone varchar(10),
                              email varchar(45), company varchar(45), street varchar(45), city varchar(45),
                              zip varchar(10), state varchar(2), out memberId int)
@@ -93,8 +93,8 @@ begin
       #   resolve specialAccommodationId from accommodation
       select id into @accommodationId from SpecialAccommodation where lower(type) = lower(accommodation);
 
-      insert into `Member` (firstName, lastName, ageRangeId, ethinicityId, specialAccommodationId, gender)
-      values (first, last, @ageRangeId, @ethnicityId, @accommodationId, _gender);
+      insert into `Member` (membershipId, firstName, lastName, ageRangeId, ethinicityId, specialAccommodationId, gender)
+      values (_membershipId, first, last, @ageRangeId, @ethnicityId, @accommodationId, _gender);
       select last_insert_id() into memberId;
       call `addContactInformation`(memberId, phone, email, company, street, city, zip, state);
     end if;

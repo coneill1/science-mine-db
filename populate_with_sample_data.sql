@@ -1,770 +1,926 @@
-# Inserting a new membership
-# 1 - insert contact information
-# 2 - insert membership (memtype = 2)
-#   - insert membership period
-# 3 - insert age range (if needed)
-# 4 - insert primary member
-
-INSERT INTO AgeRange (id, high, low)
-VALUES (1, 30, 18);
-
-INSERT INTO MembershipType (id, name)
-VALUES (1, 'Seasonal'),
-       (2, 'Annual');
-
-INSERT INTO ContactInformation (id, phoneNumber, email, city, zip, state)
-VALUES (2, '4066985698', '', '', '59701', 'MT'),
-       (3, '', 'phippsallijo@juno.com', '', '59701', 'MT'),
-       (4, '', 'sschrader@mtech.edu', '', '59701', 'MT'),
-       (5, '', 'serenityodonnell@gmail.com', '', '59701', 'MT'),
-       (6, '', 'phobia-@yahoo.com', '', '59701', 'MT'),
-       (7, '', 'euhedral@msn.com', '', '59701', 'MT'),
-       (8, '', '', '', '59701', 'MT'),
-       (9, '', 'bchoops1@gmail.com', '', '59701', 'MT'),
-       (10, '', 'burger_bill@hotmail.com', '', '59701', 'MT'),
-       (11, '', 'mpgollinger@yahoo.com', '', '59701', 'MT'),
-       (12, '7828921', '', '', '59701', 'MT'),
-       (13, '', 'porterdianna@hotmail.com', '', '59703', 'MT'),
-       (14, '7234191', 'kqbrown@msn.com  ', '', '59701', 'MT'),
-       (15, '4064984627', 'nieinazakat@live.com', '', '59701', 'MT'),
-       (16, '', 'kwpfeifer@gmail.com', 'Anaconda', '59711', 'MT'),
-       (17, '', 'shess@bsb.mt.gov', '', '59701', 'MT'),
-       (18, '', 'ajkvincent@gmail.com', '', '59701', 'MT'),
-       (19, '', '', '', '59701', 'MT'),
-       (20, '', 'suzanne.stefanac@gmail.com', '', '59701', 'MT'),
-       (21, '', 'mspeece@mtech.edu', '', '59701', 'MT'),
-       (22, '', 'sonjashadow@hmail.com', 'Anaconda', '59711', 'MT'),
-       (23, '', '', 'Anaconda', '59711', 'MT'),
-       (24, '', 'lapulrer01@gmail.com', 'Three Forks', '59752', 'MT'),
-       (25, '', '3019 Atherton Ln', '', '59701', 'MT'),
-       (26, '', 'jdt2009@live.com', 'Billings', '59041', 'MT'),
-       (27, '', 'djohns523@hotmail.com', '', '59701', 'MT'),
-       (28, '', 'tabathae@outlook.com', '', '59701', 'MT'),
-       (29, '', 'shoolahan@hotmail.com', 'Anaconda', '59711', 'MT'),
-       (30, '', 'lisagh20@gmail.com', '', '59759', 'MT'),
-       (31, '', 'mflanick@gmail.com', 'Ramsay', '59748', 'MT'),
-       (32, '', 'becta@q.com', '', '59701', 'MT'),
-       (33, '', '', '', '59701', 'MT'),
-       (34, '', '', '', '59701', 'MT'),
-       (35, '', 'janetmcoe@gmail.com', '', '59701', 'MT'),
-       (36, '', 'salutpandre@yahoo.com', '', '59701', 'MT'),
-       (37, '', 'wandakp@hotmail.com', '', '59701', 'MT'),
-       (38, '', 'mrmccarthy58@yahoo.com', '', '59701', 'MT'),
-       (39, '', 'bhill@mtech.edu', '', '59701', 'MT'),
-       (40, '', 'cliff_gade@hayoo.com', 'Walkerville', '', 'MT'),
-       (41, '', 'rvehere@mt.gov', '', '59701', 'MT'),
-       (42, '', 'pwbcanoe99@yahoo.com', '', '59701', 'MT'),
-       (43, '', 'sub98@bresnan.net', '', '59701', 'MT'),
-       (44, '', '', '', '59701', 'MT'),
-       (45, '', 'm53m@yahoo.com', '', '59701', 'MT'),
-       (46, '', 'coopers1305@yahoo.com', '', '59701', 'MT'),
-       (47, '', 'carlyapeach@gmail.com', '', '59701', 'MT'),
-       (48, '', '', '', '59701', 'MT'),
-       (49, '', 'shilo_v@yahoo.com', '', '59701', 'MT'),
-       (50, '', 'amberjones48@hotmail.com', '', '59701', 'MT'),
-       (51, '', 'dhendrix49@outlook.com', '', '59701', 'MT'),
-       (52, '', 'jennylmcewen@gmail.com', '', '59701', 'MT'),
-       (53, '', 'dtrandal@live.com', '', '59701', 'MT'),
-       (54, '', 'chelseaschmalzried@yahoo.com', '', '59701', 'MT'),
-       (55, '', 'jskinner@mtech.edu', '', '59701', 'MT'),
-       (56, '', 'kingskids0604@hmail.com', '', '59701', 'MT'),
-       (57, '', '', '', '59701', 'MT'),
-       (58, '', 'mhpatterson@bresnan.net', '', '59701', 'MT'),
-       (59, '', '', '', '59701', 'MT'),
-       (60, '', 'judiliebman', '', '59701', 'MT'),
-       (61, '', 'jbabcock@wet-llc.com', '', '59701', 'MT'),
-       (62, '', 'tssmail@tssmt.net', 'Whitehall', '', 'MT'),
-       (63, '', 'pwbcanoe99@yahoo.com', '', '59701', 'MT'),
-       (64, '', 'marykathleencraig@gmail.com', '', '59701', 'MT'),
-       (65, '', 'titusbergren@gmail.com', '', '59701', 'MT'),
-       (66, '', 'aliciawheeler@gmail.com', '', '59701', 'MT'),
-       (67, '', 'birddrew222@gmail.com', '', '59701', 'MT'),
-       (68, '', '', 'Anaconda', '59711', 'MT'),
-       (69, '', 'jdrewnumerouno@gmail.com', '', '59701', 'MT'),
-       (70, '', 'anatoart@yahoo.com', '', '59701', 'MT'),
-       (71, '', 'ashleyannneighbor@outlook.com', '', '59701', 'MT'),
-       (72, '', 'mbordwin@hotmail.com', '', '59701', 'MT'),
-       (73, '', 'phippsqllijo@juno.com', '', '59701', 'MT'),
-       (74, '', 'dmorqn51@yahoo.com', '', '59701', 'MT'),
-       (75, '', '', '', '59701', 'MT'),
-       (76, '', 'mbordwin@hotmail.com', '', '59701', 'MT'),
-       (77, '', 'fiskfam4@gmail.com', '', '59701', 'MT'),
-       (78, '', 'wyssl@aol.com', '', '59701', 'MT'),
-       (79, '', 'chelseaschmalzried@yahoo.com', '', '59701', 'MT'),
-       (80, '', 'smelter01@gmail.com', 'Anaconda', '59711', 'MT'),
-       (81, '', 'lucysupernurse@gmail.com', '', '59701', 'MT'),
-       (82, '', 'korsty@hotmail.com', 'Whitehall', '59759', 'MT'),
-       (83, '', 'roxannec1969@yahoo.com', '', '59701', 'MT'),
-       (84, '', '', '', '59701', 'MT'),
-       (85, '', 'rjordan@barrick.com', '', '59701', 'MT'),
-       (86, '', 'san21456@gmail.com', '', '59701', 'MT'),
-       (87, '', '', 'Dillon', '59725', 'MT'),
-       (88, '', 'holmanla@butte.k12.mt.us ', '', '59701', 'MT'),
-       (89, '', 'sub90@bresnan.net', '', '59701', 'MT'),
-       (90, '', 'wgskinn@hotmail.com', '', '59701', 'MT'),
-       (91, '', 'callaghanwe@butte.k12.mt.us', '', '59701', 'MT'),
-       (92, '', 'chandraduran@hotmail.com', '', '59701', 'MT'),
-       (93, '', 'scapoccia@mttech.edu', '', '59701', 'MT'),
-       (94, '', 'tlynch@bresnan.net', '', '59701', 'MT'),
-       (95, '', 'tracyc-tech@yahoo.com', '', '59701', 'MT'),
-       (96, '', 'tmpantano@yahoo.com', '', '59701', 'MT'),
-       (97, '', 'elvisbutte@yahoo.com', '', '59701', 'MT'),
-       (98, '', '', '', '59701', 'MT'),
-       (99, '', 'evanbutte@bresnan.net', '', '59701', 'MT'),
-       (100, '', 'hardrock4800@gmail.com', '', '59701', 'MT'),
-       (101, '', 'acombo@bldc.net', '', '59701', 'MT'),
-       (102, '', 'ball7134@hotmail.com', '', '59701', 'MT'),
-       (103, '', 'dcooney@bresnan.net', '', '59701', 'MT'),
-       (104, '', 'h/rounds@gmail.com', '', '59701', 'MT'),
-       (105, '', 'mmasters@mtech.edu', '', '59701', 'MT'),
-       (106, '', 'bryan@mtech.edu', '', '59701', 'MT'),
-       (107, '', 'scapoccia@mtech.edu', '', '59701', 'MT'),
-       (108, '', 'anatoart@yahoo.com', '', '59701', 'MT'),
-       (109, '', 'barbiehuber@hotmail.com', 'Bozeman', '', 'MT'),
-       (110, '', 'jayhubber24@aol.com', '', '59701', 'MT'),
-       (111, '', 'osterwoman@gmail.com', '', '59701', 'MT'),
-       (112, '', 'jeboylesr@sbcglobal.net', '', '59701', 'MT'),
-       (113, '', 'aottolinimessuri@mtech.edu', '', '59701', 'MT'),
-       (114, '', 'invavruska@bresnan.net', 'Helena', '59635', 'MT'),
-       (115, '', '', '', '59701', 'MT'),
-       (116, '', 'melissaann49@hotmail.com', '', '59701', 'MT'),
-       (117, '', 'pwbcanoe99@yahoo.com', '', '59701', 'MT'),
-       (118, '', 'hmdavisdum@gmail.com', '', '59701', 'MT'),
-       (119, '', 'joanna_buchholz@yahoo.com', '', '59701', 'MT'),
-       (120, '', 'robertmoler@gmail.com', 'Helena', '59601', 'MT'),
-       (121, '', '', '', '59701', 'MT'),
-       (122, '', 'marlenegreen3@gmail.com', '', '59701', 'MT'),
-       (123, '', '', '', '59701', 'MT'),
-       (124, '', 'mlwalsh@bresnan.net', '', '59701', 'MT'),
-       (125, '', 'glencris@bresnan.net', '', '59701', 'MT'),
-       (126, '', 'gregoryjamesschulte@gmail.com', '', '59701', 'MT'),
-       (127, '', '', '', '59701', 'MT'),
-       (128, '', 'gnicholls@bresnan.net', '', '59701', 'MT'),
-       (129, '', 'dcooney@bresnan.net', '', '59701', 'MT'),
-       (130, '', 'fbhartl@earthlink.net', '', '59701', 'MT'),
-       (131, '', 'kingskids0604@gmail.com', '', '59701', 'MT'),
-       (132, '', 'jaconandecia@gmail.com', '', '59701', 'MT'),
-       (133, '', 'jyoti.nagisetty@gmail.com', '', '59701', 'MT'),
-       (134, '', 'shawnajamison@hotmail.com', '', '59701', 'MT'),
-       (135, '', 'phippsallijoa@juno.com', '', '59701', 'MT'),
-       (136, '', 'lineman669@gmail.com', '', '59701', 'MT'),
-       (137, '', 'kpowley@yahoo.com', '', '59701', 'MT'),
-       (138, '', 'gnicholls@bresnan.net', '', '59701', 'MT'),
-       (139, '', 'm53m@yahoo.com', '', '59701', 'MT'),
-       (140, '', 'havilahhill@gmail.com', '', '59701', 'MT'),
-       (141, '', 'acombo@bldc.net', '', '59701', 'MT'),
-       (142, '', 'mthompson1828@gmail.com', '', '59701', 'MT'),
-       (143, '', 'xtyler.storeyx@gmail.com', '', '59701', 'MT'),
-       (144, '', 'wardlk4@gmail.com', '', '59701', 'MT'),
-       (145, '', 'ball7134@hotmail.com', '', '59701', 'MT'),
-       (146, '', 'nicwelker@gmail.com', '', '59701', 'MT'),
-       (147, '', 'cyr61us@yahoo.com', '', '59701', 'MT'),
-       (148, '', 'johnbabcock@hotmail.com', '', '59701', 'MT'),
-       (149, '', 'maggie.pierce@youthdynamics.org', '', '59701', 'MT'),
-       (150, '', 'jetdog23@aol.com', '', '59701', 'MT'),
-       (151, '', '', '', '59701', 'MT'),
-       (152, '', '', '', '59701', 'MT'),
-       (153, '', '', '', '59421', 'MT'),
-       (154, '', 'ltiern8@gmail.com', '', '59701', 'MT'),
-       (155, '', 'nate.watson82@gmail.com', '', '59701', 'MT'),
-       (156, '', 'margaretferko@yahoo.com', '', '59701', 'MT'),
-       (157, '', 'hardrock4800@gmail.com', '', '59701', 'MT'),
-       (158, '', 'laurazorn3@gmail.com', '', '59701', 'MT'),
-       (159, '', 'hsrisser@mac.com', '', '59701', 'MT'),
-       (160, '', 'jtomich@bresnan.net', '', '59701', 'MT'),
-       (161, '', 'pamcote114@msn.com', '', '59701', 'MT'),
-       (162, '', 'jamieboyer1130@hotmail.com', 'Anaconda', '59711', 'MT'),
-       (163, '', 'claudiarap59701@msn.com', '', '59701', 'MT'),
-       (164, '', 'sjcmt2003@yahoo.com', '', '59701', 'MT'),
-       (165, '', 'tarynj21691@gmail.com', '', '59701', 'MT'),
-       (166, '', 'phippsallijo@juno.com', '', '59701', 'MT'),
-       (167, '', 'clhadley@gmail.com', '', '59701', 'MT'),
-       (168, '', 'kmoore@cherrycreekradio.org', '', '59701', 'MT'),
-       (169, '', 'tcmmwold9000@gmail.com', '', '59701', 'MT'),
-       (170, '', 'sstorey@mtech.edu', '', '59701', 'MT'),
-       (171, '', 'randijo.luke@yahoo.com', '', '59701', 'MT'),
-       (172, '', 'kgames1021@yahoo.com', '', '59701', 'MT'),
-       (173, '', 'tarynj21691@gmail.com', '', '59701', 'MT'),
-       (174, '', 'lindseytoderovich@gmail.com', '', '59701', 'MT'),
-       (175, '', 'lwdudding@gmail.com', '', '59701', 'MT'),
-       (176, '', 'lilyuma@live.com', 'Wiseriver', '59762', 'MT'),
-       (177, '', 'aortiz@mtech.edu', '', '59701', 'MT'),
-       (178, '', '', '', '59701', 'MT'),
-       (179, '', 'mtcarddealer@gmail.com', '', '59701', 'MT'),
-       (180, '', 'twopersons4jesus@bresnan.net', '', '59701', 'MT'),
-       (181, '', 'claudiarap59701@msn.com', '', '59701', 'MT'),
-       (182, '', 'dhendrix49@outlook.com', '', '59701', 'MT'),
-       (183, '', 'janetmcoe@gmail.com', '', '59701', 'MT'),
-       (184, '', 'loni.odenbeckdvm@gmail.com', '', '59701', 'MT'),
-       (185, '', 'magzrhax@yahoo.com', '', '59701', 'MT'),
-       (186, '', 'lawrenw@gmail.com', '', '59701', 'MT'),
-       (187, '', 'toshmcc3@gmail.com', '', '59701', 'MT');
-
-INSERT INTO Membership (membershipTypeId, id, isActive)
-VALUES (2, 4, 0),
-       (2, 5, 0),
-       (2, 6, 0),
-       (2, 7, 0),
-       (2, 8, 0),
-       (2, 9, 0),
-       (2, 10, 0),
-       (2, 11, 0),
-       (2, 12, 0),
-       (2, 13, 0),
-       (2, 14, 0),
-       (2, 15, 0),
-       (2, 16, 0),
-       (2, 17, 0),
-       (2, 18, 0),
-       (2, 19, 0),
-       (2, 20, 0),
-       (2, 21, 0),
-       (2, 22, 0),
-       (2, 23, 0),
-       (2, 24, 0),
-       (2, 25, 0),
-       (2, 26, 0),
-       (2, 27, 0),
-       (2, 28, 0),
-       (2, 29, 0),
-       (2, 30, 0),
-       (2, 31, 0),
-       (2, 32, 0),
-       (2, 33, 0),
-       (2, 34, 0),
-       (2, 35, 0),
-       (2, 36, 0),
-       (2, 37, 0),
-       (2, 38, 0),
-       (2, 39, 0),
-       (2, 40, 0),
-       (2, 41, 0),
-       (2, 42, 0),
-       (2, 43, 0),
-       (2, 44, 0),
-       (2, 45, 0),
-       (2, 46, 0),
-       (2, 47, 0),
-       (2, 48, 0),
-       (2, 49, 0),
-       (2, 50, 0),
-       (2, 51, 0),
-       (2, 52, 0),
-       (2, 53, 0),
-       (2, 54, 0),
-       (2, 55, 0),
-       (2, 56, 0),
-       (2, 57, 0),
-       (2, 58, 0),
-       (2, 59, 0),
-       (2, 60, 0),
-       (2, 61, 0),
-       (2, 62, 0),
-       (2, 63, 0),
-       (2, 64, 0),
-       (2, 65, 0),
-       (2, 66, 0),
-       (2, 67, 0),
-       (2, 68, 0),
-       (2, 69, 0),
-       (2, 70, 0),
-       (2, 71, 0),
-       (2, 72, 0),
-       (2, 73, 0),
-       (2, 74, 0),
-       (2, 75, 0),
-       (2, 76, 0),
-       (2, 77, 0),
-       (2, 78, 0),
-       (2, 79, 0),
-       (2, 80, 0),
-       (2, 81, 0),
-       (2, 82, 0),
-       (2, 83, 0),
-       (2, 84, 0),
-       (2, 85, 0),
-       (2, 86, 0),
-       (2, 87, 0),
-       (2, 88, 0),
-       (2, 89, 0),
-       (2, 90, 0),
-       (2, 91, 0),
-       (2, 92, 0),
-       (2, 93, 0),
-       (2, 94, 0),
-       (2, 95, 0),
-       (2, 96, 0),
-       (2, 97, 0),
-       (2, 98, 0),
-       (2, 99, 0),
-       (2, 100, 0),
-       (2, 101, 0),
-       (2, 102, 0),
-       (2, 103, 0),
-       (2, 104, 0),
-       (2, 105, 0),
-       (2, 106, 0),
-       (2, 107, 0),
-       (2, 108, 0),
-       (2, 109, 0),
-       (2, 110, 0),
-       (2, 111, 0),
-       (2, 112, 0),
-       (2, 113, 0),
-       (2, 114, 0),
-       (2, 115, 0),
-       (2, 116, 0),
-       (2, 117, 0),
-       (2, 118, 0),
-       (2, 119, 0),
-       (2, 120, 0),
-       (2, 121, 0),
-       (2, 122, 0),
-       (2, 123, 0),
-       (2, 124, 0),
-       (2, 125, 0),
-       (2, 126, 0),
-       (2, 127, 0),
-       (2, 128, 0),
-       (2, 129, 0),
-       (2, 130, 0),
-       (2, 131, 0),
-       (2, 132, 0),
-       (2, 133, 0),
-       (2, 134, 0),
-       (2, 135, 0),
-       (2, 136, 0),
-       (2, 137, 0),
-       (2, 138, 0),
-       (2, 139, 0),
-       (2, 140, 0),
-       (2, 141, 0),
-       (2, 142, 0),
-       (2, 143, 0),
-       (2, 144, 0),
-       (2, 145, 0),
-       (2, 146, 0),
-       (2, 147, 0),
-       (2, 148, 0),
-       (2, 149, 0),
-       (2, 150, 0),
-       (2, 151, 0),
-       (2, 152, 0),
-       (2, 153, 0),
-       (2, 154, 0),
-       (2, 155, 0),
-       (2, 156, 0),
-       (2, 157, 0),
-       (2, 158, 0),
-       (2, 159, 0),
-       (2, 160, 0),
-       (2, 161, 0),
-       (2, 162, 0),
-       (2, 163, 0),
-       (2, 164, 0),
-       (2, 165, 0),
-       (2, 166, 0),
-       (2, 167, 0),
-       (2, 168, 0),
-       (2, 169, 0),
-       (2, 170, 0),
-       (2, 171, 0),
-       (2, 172, 0),
-       (2, 173, 0),
-       (2, 174, 0),
-       (2, 175, 0),
-       (2, 176, 0),
-       (2, 177, 0),
-       (2, 178, 0),
-       (2, 179, 0),
-       (2, 180, 0),
-       (2, 181, 0),
-       (2, 182, 0),
-       (2, 183, 0),
-       (2, 184, 0),
-       (2, 185, 0),
-       (2, 186, 0),
-       (2, 187, 0),
-       (2, 188, 0),
-       (2, 189, 0);
-
-INSERT INTO MembershipPeriod (membershipId, start, end)
-VALUES (4, DATE('2015-04-18'), DATE('2016-04-18')),
-       (5, DATE('2015-04-11'), DATE('2016-04-11')),
-       (6, DATE('2015-04-11'), DATE('2016-04-11')),
-       (7, DATE('2015-04-11'), DATE('2016-04-11')),
-       (8, DATE('2015-04-11'), DATE('2016-04-11')),
-       (9, DATE('2015-04-11'), DATE('2016-04-11')),
-       (10, DATE('2015-04-11'), DATE('2016-04-11')),
-       (11, DATE('2015-04-04'), DATE('2016-04-04')),
-       (12, DATE('2015-03-21'), DATE('2016-03-21')),
-       (13, DATE('2015-03-28'), DATE('2016-03-28')),
-       (14, DATE('2015-03-21'), DATE('2016-03-21')),
-       (15, DATE('2015-04-04'), DATE('2016-04-04')),
-       (16, DATE('2015-03-28'), DATE('2016-03-28')),
-       (17, DATE('2002-04-18'), DATE('2003-04-18')),
-       (18, DATE('2015-03-14'), DATE('2016-03-14')),
-       (19, DATE('2015-04-04'), DATE('2016-04-04')),
-       (20, DATE('2015-02-07'), DATE('2016-02-07')),
-       (21, DATE('2015-02-07'), DATE('2016-02-07')),
-       (22, DATE('2015-02-07'), DATE('2016-02-07')),
-       (23, DATE('2015-02-07'), DATE('2016-02-07')),
-       (24, DATE('2015-02-07'), DATE('2016-02-07')),
-       (25, DATE('2015-02-07'), DATE('2016-02-07')),
-       (26, DATE('2015-02-07'), DATE('2016-02-07')),
-       (27, DATE('2015-03-07'), DATE('2016-03-07')),
-       (28, DATE('2015-02-07'), DATE('2016-02-07')),
-       (29, DATE('2015-01-07'), DATE('2016-01-07')),
-       (30, DATE('2015-02-06'), DATE('2016-02-06')),
-       (31, DATE('2015-02-07'), DATE('2016-02-07')),
-       (32, DATE('2015-02-06'), DATE('2016-02-06')),
-       (33, DATE('2015-02-07'), DATE('2016-02-07')),
-       (34, DATE('2015-02-07'), DATE('2016-02-07')),
-       (35, DATE('2015-02-07'), DATE('2016-02-07')),
-       (36, DATE('2015-02-07'), DATE('2016-02-07')),
-       (37, DATE('2015-02-07'), DATE('2016-02-07')),
-       (38, DATE('2015-02-14'), DATE('2016-02-14')),
-       (39, DATE('2015-02-14'), DATE('2016-02-14')),
-       (40, DATE('2015-02-14'), DATE('2016-02-14')),
-       (41, DATE('2015-02-14'), DATE('2016-02-14')),
-       (42, DATE('2015-02-14'), DATE('2016-02-14')),
-       (43, DATE('2015-02-14'), DATE('2016-02-14')),
-       (44, DATE('2015-02-14'), DATE('2016-02-14')),
-       (45, DATE('2015-02-28'), DATE('2016-02-28')),
-       (46, DATE('2015-02-28'), DATE('2016-02-28')),
-       (47, DATE('2015-02-28'), DATE('2016-02-28')),
-       (48, DATE('2015-02-28'), DATE('2016-02-28')),
-       (49, DATE('2015-02-28'), DATE('2016-02-28')),
-       (50, DATE('2015-02-28'), DATE('2016-02-28')),
-       (51, DATE('2015-03-07'), DATE('2016-03-07')),
-       (52, DATE('2015-03-07'), DATE('2016-03-07')),
-       (53, DATE('2015-03-07'), DATE('2016-03-07')),
-       (54, DATE('2015-03-07'), DATE('2016-03-07')),
-       (55, DATE('2015-03-14'), DATE('2016-03-14')),
-       (56, DATE('2015-03-14'), DATE('2016-03-14')),
-       (57, DATE('2015-03-07'), DATE('2016-03-07')),
-       (58, DATE('2015-06-06'), DATE('2016-06-06')),
-       (59, DATE('2015-09-19'), DATE('2016-09-19')),
-       (60, DATE('2015-10-03'), DATE('2016-10-03')),
-       (61, DATE('2015-10-25'), DATE('2016-10-25')),
-       (62, DATE('2015-10-24'), DATE('2016-10-24')),
-       (63, DATE('2015-10-17'), DATE('2016-10-17')),
-       (64, DATE('2015-10-03'), DATE('2016-10-03')),
-       (65, DATE('2015-10-03'), DATE('2016-10-03')),
-       (66, DATE('2015-09-30'), DATE('2016-09-30')),
-       (67, DATE('2015-12-05'), DATE('2016-12-05')),
-       (68, DATE('2015-01-21'), DATE('2016-01-21')),
-       (69, DATE('2015-11-21'), DATE('2016-11-21')),
-       (70, DATE('2015-12-19'), DATE('2016-12-19')),
-       (71, DATE('2015-12-12'), DATE('2016-12-12')),
-       (72, DATE('2015-12-12'), DATE('2016-12-12')),
-       (73, DATE('2015-01-23'), DATE('2016-01-23')),
-       (74, DATE('2015-04-11'), DATE('2016-04-11')),
-       (75, DATE('2016-02-13'), DATE('2017-02-13')),
-       (76, DATE('2016-04-30'), DATE('2017-04-30')),
-       (77, DATE('2016-04-20'), DATE('2017-04-20')),
-       (78, DATE('2016-04-17'), DATE('2017-04-17')),
-       (79, DATE('2016-04-16'), DATE('2017-04-16')),
-       (80, DATE('2016-04-09'), DATE('2017-04-09')),
-       (81, DATE('2016-04-09'), DATE('2017-04-09')),
-       (82, DATE('2016-05-21'), DATE('2017-05-21')),
-       (83, DATE('2016-05-21'), DATE('2017-05-21')),
-       (84, DATE('2016-05-21'), DATE('2017-05-21')),
-       (85, DATE('2016-05-21'), DATE('2017-05-21')),
-       (86, DATE('2016-05-07'), DATE('2017-05-07')),
-       (87, DATE('2016-03-12'), DATE('2017-03-12')),
-       (88, DATE('2016-03-12'), DATE('2017-03-12')),
-       (89, DATE('2016-01-01'), DATE('2017-01-01')),
-       (90, DATE('2016-02-13'), DATE('2017-02-13')),
-       (91, DATE('2016-01-19'), DATE('2017-01-19')),
-       (92, DATE('2016-01-19'), DATE('2017-01-19')),
-       (93, DATE('2016-01-23'), DATE('2017-01-23')),
-       (94, DATE('2016-01-23'), DATE('2017-01-23')),
-       (95, DATE('2016-01-23'), DATE('2017-01-23')),
-       (96, DATE('2016-11-23'), DATE('2017-11-23')),
-       (97, DATE('2016-01-23'), DATE('2017-01-23')),
-       (98, DATE('2016-01-23'), DATE('2017-01-23')),
-       (99, DATE('2016-01-23'), DATE('2017-01-23')),
-       (100, DATE('2016-01-23'), DATE('2017-01-23')),
-       (101, DATE('2016-01-30'), DATE('2017-01-30')),
-       (102, DATE('2016-09-23'), DATE('2017-09-23')),
-       (103, DATE('2016-09-24'), DATE('2017-09-24')),
-       (104, DATE('2016-09-25'), DATE('2017-09-25')),
-       (105, DATE('2016-10-01'), DATE('2017-10-01')),
-       (106, DATE('2016-10-08'), DATE('2017-10-08')),
-       (107, DATE('2016-10-08'), DATE('2017-10-08')),
-       (108, DATE('2016-10-08'), DATE('2017-10-08')),
-       (109, DATE('2016-10-08'), DATE('2017-10-08')),
-       (110, DATE('2016-10-08'), DATE('2017-10-08')),
-       (111, DATE('2016-10-08'), DATE('2017-10-08')),
-       (112, DATE('2016-10-14'), DATE('2017-10-14')),
-       (113, DATE('2016-10-15'), DATE('2017-10-15')),
-       (114, DATE('2016-10-15'), DATE('2017-10-15')),
-       (115, DATE('2016-10-15'), DATE('2017-10-15')),
-       (116, DATE('2016-10-22'), DATE('2017-10-22')),
-       (117, DATE('2016-10-29'), DATE('2017-10-29')),
-       (118, DATE('2016-10-29'), DATE('2017-10-29')),
-       (119, DATE('2016-10-29'), DATE('2017-10-29')),
-       (120, DATE('2016-11-05'), DATE('2017-11-05')),
-       (121, DATE('2016-11-05'), DATE('2017-11-05')),
-       (122, DATE('2016-11-05'), DATE('2017-11-05')),
-       (123, DATE('2016-11-12'), DATE('2017-11-12')),
-       (124, DATE('2016-11-26'), DATE('2017-11-26')),
-       (125, DATE('2016-11-26'), DATE('2017-11-26')),
-       (126, DATE('2017-04-22'), DATE('2018-04-22')),
-       (127, DATE('2017-06-03'), DATE('2018-06-03')),
-       (128, DATE('2017-06-03'), DATE('2018-06-03')),
-       (129, DATE('2017-06-10'), DATE('2018-06-10')),
-       (130, DATE('2017-06-10'), DATE('2018-06-10')),
-       (131, DATE('2017-06-17'), DATE('2018-06-17')),
-       (132, DATE('2017-06-17'), DATE('2018-06-17')),
-       (133, DATE('2017-06-24'), DATE('2018-06-24')),
-       (134, DATE('2017-06-24'), DATE('2018-06-24')),
-       (135, DATE('2017-06-24'), DATE('2018-06-24')),
-       (136, DATE('2027-06-24'), DATE('2028-06-24')),
-       (137, DATE('2017-01-28'), DATE('2018-01-28')),
-       (138, DATE('2017-02-04'), DATE('2018-02-04')),
-       (139, DATE('2017-02-04'), DATE('2018-02-04')),
-       (140, DATE('2017-01-14'), DATE('2018-01-14')),
-       (141, DATE('2017-01-14'), DATE('2018-01-14')),
-       (142, DATE('2017-01-14'), DATE('2018-01-14')),
-       (143, DATE('2016-01-01'), DATE('2017-01-01')),
-       (144, DATE('2017-01-17'), DATE('2018-01-17')),
-       (145, DATE('2017-02-04'), DATE('2018-02-04')),
-       (146, DATE('2017-04-08'), DATE('2018-04-08')),
-       (147, DATE('2017-04-08'), DATE('2018-04-08')),
-       (148, DATE('2017-04-08'), DATE('2018-04-08')),
-       (149, DATE('2017-05-17'), DATE('2018-05-17')),
-       (150, DATE('2017-05-20'), DATE('2018-05-20')),
-       (151, DATE('2017-05-27'), DATE('2018-05-27')),
-       (152, DATE('2016-01-01'), DATE('2017-01-01')),
-       (153, DATE('2016-01-01'), DATE('2017-01-01')),
-       (154, DATE('2016-01-01'), DATE('2017-01-01')),
-       (155, DATE('2015-04-18'), DATE('2016-04-18')),
-       (156, DATE('2016-01-01'), DATE('2017-01-01')),
-       (157, DATE('2016-01-01'), DATE('2017-01-01')),
-       (158, DATE('2016-01-01'), DATE('2017-01-01')),
-       (159, DATE('2016-01-01'), DATE('2017-01-01')),
-       (160, DATE('2016-01-01'), DATE('2017-01-01')),
-       (161, DATE('2016-01-01'), DATE('2017-01-01')),
-       (162, DATE('2016-01-01'), DATE('2017-01-01')),
-       (163, DATE('2016-01-01'), DATE('2017-01-01')),
-       (164, DATE('2016-01-01'), DATE('2017-01-01')),
-       (165, DATE('2015-02-28'), DATE('2016-02-28')),
-       (166, DATE('2016-01-01'), DATE('2017-01-01')),
-       (167, DATE('2015-02-28'), DATE('2016-02-28')),
-       (168, DATE('2016-01-01'), DATE('2017-01-01')),
-       (169, DATE('2015-10-24'), DATE('2016-10-24')),
-       (170, DATE('2016-01-01'), DATE('2017-01-01')),
-       (171, DATE('2016-01-01'), DATE('2017-01-01')),
-       (172, DATE('2016-01-01'), DATE('2017-01-01')),
-       (173, DATE('2016-01-01'), DATE('2017-01-01')),
-       (174, DATE('2015-10-03'), DATE('2016-10-03')),
-       (175, DATE('2016-01-01'), DATE('2017-01-01')),
-       (176, DATE('2017-01-21'), DATE('2018-01-21')),
-       (177, DATE('2016-01-01'), DATE('2017-01-01')),
-       (178, DATE('2017-04-08'), DATE('2018-04-08')),
-       (179, DATE('2017-04-29'), DATE('2018-04-29')),
-       (180, DATE('2016-01-01'), DATE('2017-01-01')),
-       (181, DATE('2016-01-01'), DATE('2017-01-01')),
-       (182, DATE('2017-04-29'), DATE('2018-04-29')),
-       (183, DATE('2015-10-24'), DATE('2016-10-24')),
-       (184, DATE('2016-01-01'), DATE('2017-01-01')),
-       (185, DATE('2016-01-01'), DATE('2017-01-01')),
-       (186, DATE('2016-01-01'), DATE('2017-01-01')),
-       (187, DATE('2016-01-01'), DATE('2017-01-01')),
-       (188, DATE('2016-01-01'), DATE('2017-01-01')),
-       (189, DATE('2016-01-01'), DATE('2017-01-01'));
-
-INSERT
-INTO PrimaryMember (firstName, lastName, ageRangeId, gender, membershipId, contactInformationId)
-VALUES ('Jordan',
-        'Stevens', 1,
-        'male', 4, 2),
-       ('', 'Andersen', 1, 'male', 5, 3),
-       ('Susan', 'Schrader', 1, 'male', 6, 4),
-       ('', 'O\'Donnell', 1, 'male', 7, 5),
-       ('Jamie', 'Offutt', 1, 'male', 8, 6),
-       ('Cheryl', 'Madison', 1, 'male', 9, 7),
-       ('Vik', 'Kujawa', 1, 'male', 10, 8),
-       ('Kels', 'Brodie', 1, 'male', 11, 9),
-       ('Bill', 'Burger', 1, 'male', 12, 10),
-       ('Mack', 'Gollinger', 1, 'male', 13, 11),
-       ('Michelle', 'Wold', 1, 'male', 14, 12),
-       ('Dianna', 'Porter ', 1, 'male', 15, 13),
-       ('Kim', 'Mannix', 1, 'male', 16, 14),
-       ('Michelle', 'Zarate', 1, 'male', 17, 15),
-       ('Kevin', 'Pfeifer', 1, 'male', 18, 16),
-       ('Steve', 'Hess', 1, 'male', 19, 17),
-       ('', 'Vincent', 1, 'male', 20, 18),
-       ('', 'Watson', 1, 'male', 21, 19),
-       ('Suzanne', 'Stefanac', 1, 'male', 22, 20),
-       ('Marvin', 'Speece', 1, 'male', 23, 21),
-       ('', 'Shadow', 1, 'male', 24, 22),
-       ('', 'Sawyer', 1, 'male', 25, 23),
-       ('Chris/Lyndsay', 'Richards', 1, 'male', 26, 24),
-       ('Joe', 'Petroni-Jodel', 1, 'male', 27, 25),
-       ('Chris ', 'Lu', 1, 'male', 28, 26),
-       ('Dave', 'Johns', 1, 'male', 29, 27),
-       ('Robert/Tabatha', 'Hyatt', 1, 'male', 30, 28),
-       ('Shaun', 'Hoolahan', 1, 'male', 31, 29),
-       ('Lisa', 'Graham', 1, 'male', 32, 30),
-       ('Mike', 'Flanick', 1, 'male', 33, 31),
-       ('Erin', 'Angove', 1, 'male', 34, 32),
-       ('Gene', 'Ashby', 1, 'male', 35, 33),
-       ('', 'Aware on Ottawa', 1, 'male', 36, 34),
-       ('Janet/Stephen', 'Coe', 1, 'male', 37, 35),
-       ('Patrick', 'Andre ', 1, 'male', 38, 36),
-       ('Wanda', 'Haller', 1, 'male', 39, 37),
-       ('Mickal', 'McCarthy', 1, 'male', 40, 38),
-       ('Bryce', 'Hill', 1, 'male', 41, 39),
-       ('Cliff', 'Gade', 1, 'male', 42, 40),
-       ('Hansen', 'Velbr', 1, 'male', 43, 41),
-       ('Pat ', 'Broderick', 1, 'male', 44, 42),
-       ('Tammy', 'Jonse', 1, 'male', 45, 43),
-       ('Ryan', 'Draper', 1, 'male', 46, 44),
-       ('Catherine', 'Lace', 1, 'male', 47, 45),
-       ('Tory', 'Cooper', 1, 'male', 48, 46),
-       ('Carly', 'Peach', 1, 'male', 49, 47),
-       ('Bruce/Peggy', 'Graving', 1, 'male', 50, 48),
-       ('Shilo', 'Van Tatenhove', 1, 'male', 51, 49),
-       ('Amber', 'Henson', 1, 'male', 52, 50),
-       ('Denise', 'Hendrix', 1, 'male', 53, 51),
-       ('Jenny', 'McEwen', 1, 'male', 54, 52),
-       ('Joe', 'Lynch', 1, 'male', 55, 53),
-       ('C', 'Schmalzried', 1, 'male', 56, 54),
-       ('', 'Skinner', 1, 'male', 57, 55),
-       ('Missy', 'Okrusch (Kings Kids)', 1, 'male', 58, 56),
-       ('Judy', 'Evans', 1, 'male', 59, 57),
-       ('Mike', 'Patterson', 1, 'male', 60, 58),
-       ('Dee', 'Wilson', 1, 'male', 61, 59),
-       ('Judi', 'Schutte', 1, 'male', 62, 60),
-       ('John', 'Babcock', 1, 'male', 63, 61),
-       ('Lee', 'Good', 1, 'male', 64, 62),
-       ('Patrick', 'Broderick', 1, 'male', 65, 63),
-       ('Mary Kay', 'Craig', 1, 'male', 66, 64),
-       ('Titus', 'Bergren', 1, 'male', 67, 65),
-       ('Alicia', 'Kachmavik', 1, 'male', 68, 66),
-       ('Elizabeth', 'Drew', 1, 'male', 69, 67),
-       ('Pate', 'Briggs', 1, 'male', 70, 68),
-       ('Ben/Jess', 'Carr', 1, 'male', 71, 69),
-       ('Sabina', 'Pate-Terry', 1, 'male', 72, 70),
-       ('Ashley', 'Neighbor', 1, 'male', 73, 71),
-       ('Mike', 'Bordwin', 1, 'male', 74, 72),
-       ('Allison', 'Andersen', 1, 'male', 75, 73),
-       ('Darla', 'Moran', 1, 'male', 76, 74),
-       ('Theron', 'Wilson', 1, 'male', 77, 75),
-       ('Mike', 'Bordwin', 1, 'male', 78, 76),
-       ('Becky', 'Fisk', 1, 'male', 79, 77),
-       ('Gary', 'Wyss', 1, 'male', 80, 78),
-       ('C', 'Schmalzried', 1, 'male', 81, 79),
-       ('Dave', 'McCarthy', 1, 'male', 82, 80),
-       ('Lucy', 'Ednie', 1, 'male', 83, 81),
-       ('Jason', 'Korst', 1, 'male', 84, 82),
-       ('Rozanne', 'Conley', 1, 'male', 85, 83),
-       ('JJ', 'Bestgen', 1, 'male', 86, 84),
-       ('Rick', 'Jordan', 1, 'male', 87, 85),
-       ('Mike', 'Nasheim', 1, 'male', 88, 86),
-       ('Alyssa', 'Creighton', 1, 'male', 89, 87),
-       ('Lesley', 'Holman', 1, 'male', 90, 88),
-       ('Gene/Tammy', 'Jense', 1, 'male', 91, 89),
-       ('', 'Skinner', 1, 'male', 92, 90),
-       ('', 'Callaghan', 1, 'male', 93, 91),
-       ('Chandra', 'Duran', 1, 'male', 94, 92),
-       ('Shella', 'Capaccia', 1, 'male', 95, 93),
-       ('Tim', 'Lynch', 1, 'male', 96, 94),
-       ('Tracy', 'Cannon', 1, 'male', 97, 95),
-       ('Tina', 'Pantano', 1, 'male', 98, 96),
-       ('Sheilah', 'VIncent', 1, 'male', 99, 97),
-       ('', 'Brady', 1, 'male', 100, 98),
-       ('Evan', 'Barrett', 1, 'male', 101, 99),
-       ('Larry', 'Hoffman', 1, 'male', 102, 100),
-       ('Cormic', 'Sletten', 1, 'male', 103, 101),
-       ('', 'Ball', 1, 'male', 104, 102),
-       ('Dolores', 'Cooney', 1, 'male', 105, 103),
-       ('Rounds', 'Shuttlesworth', 1, 'male', 106, 104),
-       ('Avi', 'Masters', 1, 'male', 107, 105),
-       ('Tera', 'Ryan', 1, 'male', 108, 106),
-       ('Asna', 'Henne/capocca', 1, 'male', 109, 107),
-       ('Terry', 'Pate', 1, 'male', 110, 108),
-       ('Barbie', 'Huber', 1, 'male', 111, 109),
-       ('Kelly', 'Thatcher', 1, 'male', 112, 110),
-       ('Amber/Dennis', 'Osterman', 1, 'male', 113, 111),
-       ('Jeannine', 'Boyle', 1, 'male', 114, 112),
-       ('Ottolini', 'Messukri', 1, 'male', 115, 113),
-       ('', 'Vavruska', 1, 'male', 116, 114),
-       ('Robin', 'Johnson', 1, 'male', 117, 115),
-       ('Melissa', 'Kump', 1, 'male', 118, 116),
-       ('Patrick', 'Broderick', 1, 'male', 119, 117),
-       ('Shane/Heather', 'Davis', 1, 'male', 120, 118),
-       ('JoAnna', 'Buchholz', 1, 'male', 121, 119),
-       ('Robert', 'Moler', 1, 'male', 122, 120),
-       ('Oly', 'Petersen', 1, 'male', 123, 121),
-       ('Marlene', 'Worthon', 1, 'male', 124, 122),
-       ('Bryan/Mandy', 'Armstrong', 1, 'male', 125, 123),
-       ('', 'Walsh', 1, 'male', 126, 124),
-       ('Glenn', 'Brackett', 1, 'male', 127, 125),
-       ('', 'Schulte', 1, 'male', 128, 126),
-       ('Carol', 'Smith', 1, 'male', 129, 127),
-       ('Gayle', 'Nicholls', 1, 'male', 130, 128),
-       ('Dolores', 'Cooney', 1, 'male', 131, 129),
-       ('Fred/Bev', 'Hartline', 1, 'male', 132, 130),
-       ('Missy', 'Okrusch', 1, 'male', 133, 131),
-       ('Decia', 'Newby', 1, 'male', 134, 132),
-       ('', 'Naglsetty', 1, 'male', 135, 133),
-       ('', 'Jamison', 1, 'male', 136, 134),
-       ('Allison', 'Andersen', 1, 'male', 137, 135),
-       ('Ben', 'Clark', 1, 'male', 138, 136),
-       ('', 'Hasslers', 1, 'male', 139, 137),
-       ('Gayle', 'Nicholls', 1, 'male', 140, 138),
-       ('Catherine', 'Lace', 1, 'male', 141, 139),
-       ('Havilah', 'Hill', 1, 'male', 142, 140),
-       ('Cormic', 'Sletten', 1, 'male', 143, 141),
-       ('Paige', 'Thompson', 1, 'male', 144, 142),
-       ('Tyler', 'Storey', 1, 'male', 145, 143),
-       ('Kim', 'Ward', 1, 'male', 146, 144),
-       ('J', 'Ball', 1, 'male', 147, 145),
-       ('', 'Welker', 1, 'male', 148, 146),
-       ('', 'Cyr', 1, 'male', 149, 147),
-       ('John', 'Babcock', 1, 'male', 150, 148),
-       ('Fallen', 'Bennett', 1, 'male', 151, 149),
-       ('Dave', 'Holman', 1, 'male', 152, 150),
-       ('Megan', 'O\'keefe', 1, 'male', 153, 151),
-       ('Ryan', 'Mullcahy', 1, 'male', 154, 152),
-       ('Todd/Mitzi', 'Leibrand', 1, 'male', 155, 153),
-       ('Lee', 'Tierney', 1, 'male', 156, 154),
-       ('Nate', 'Watson', 1, 'male', 157, 155),
-       ('Maggie', 'Ferko', 1, 'male', 158, 156),
-       ('Larry/Nancy', 'Hoffman', 1, 'male', 159, 157),
-       ('Laura', 'Moore', 1, 'male', 160, 158),
-       ('Hilary', 'Risser', 1, 'male', 161, 159),
-       ('John', 'Tomich', 1, 'male', 162, 160),
-       ('Pam', 'Dazby-Cote', 1, 'male', 163, 161),
-       ('J.', 'Boyer', 1, 'male', 164, 162),
-       ('Ben', 'Rapkod', 1, 'male', 165, 163),
-       ('Susan', 'Callaghan', 1, 'male', 166, 164),
-       ('Taryn', 'Calderon', 1, 'male', 167, 165),
-       ('Allison', 'Andersen', 1, 'male', 168, 166),
-       ('Chrissy', 'Hadley', 1, 'male', 169, 167),
-       ('Kathleen', 'Moore', 1, 'male', 170, 168),
-       ('Michelle', 'Wold', 1, 'male', 171, 169),
-       ('Sarah', 'Storey', 1, 'male', 172, 170),
-       ('Randi', 'Luke', 1, 'male', 173, 171),
-       ('Katherine/James', 'Sweet', 1, 'male', 174, 172),
-       ('Andrew', 'Calderon', 1, 'male', 175, 173),
-       ('Ryan/Lindsey', 'Toderovich', 1, 'male', 176, 174),
-       ('Logan', 'Dudding', 1, 'male', 177, 175),
-       ('Jason/Jennifer', 'Hands', 1, 'male', 178, 176),
-       ('Amanda', 'Ortiz-Cabrera', 1, 'male', 179, 177),
-       ('', 'Moran', 1, 'male', 180, 178),
-       ('James', 'Hadley', 1, 'male', 181, 179),
-       ('', 'Persons', 1, 'male', 182, 180),
-       ('Claudial/Brent', 'Rapkoch', 1, 'male', 183, 181),
-       ('Denise', 'Hendrix', 1, 'male', 184, 182),
-       ('Janet/Stephen', 'Coe', 1, 'male', 185, 183),
-       ('Lani', 'Odenbeck', 1, 'male', 186, 184),
-       ('Maggie/Logan', 'Matteson', 1, 'male', 187, 185),
-       ('Lawrence', 'Weirick (Family Outreach)', 1, 'male', 188, 186),
-       ('T', 'McCullak', 1, 'male', 189, 187);
-
-call `addMember`('test2', 'test2', 30, null, 'male', null, 0, null, null, null, 'Butte', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2017-09-05', '2018-09-05');
+call addPrimaryMember(@membershipId, 'Theron', 'Wilson', 25, null, 'male', null, '', '', null, null, 'Butte', '59701',
+                      'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-02-06', '2016-02-06');
+call addPrimaryMember(@membershipId, 'Dawn', 'Wilcox', 25, null, 'male', null, '', 'dgordon7229@yahoo.com', null, null,
+                      '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-04-18', '2016-04-18');
+call addPrimaryMember(@membershipId, 'Jordan', 'Stevens', 25, null, 'male', null, '4066985698', '', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-04-11', '2016-04-11');
+call addPrimaryMember(@membershipId, '', 'Andersen', 25, null, 'male', null, '', 'phippsallijo@juno.com', null, null,
+                      '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-04-11', '2016-04-11');
+call addPrimaryMember(@membershipId, 'Susan', 'Schrader', 25, null, 'male', null, '', 'sschrader@mtech.edu', null, null,
+                      '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-04-11', '2016-04-11');
+call addPrimaryMember(@membershipId, '', 'O\'Donnell', 25, null, 'male', null, '', 'serenityodonnell@gmail.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-04-11', '2016-04-11');
+call addPrimaryMember(@membershipId, 'Jamie', 'Offutt', 25, null, 'male', null, '', 'phobia-@yahoo.com', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-04-11', '2016-04-11');
+call addPrimaryMember(@membershipId, 'Cheryl', 'Madison', 25, null, 'male', null, '', 'euhedral@msn.com', null, null,
+                      '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-04-11', '2016-04-11');
+call addPrimaryMember(@membershipId, 'Vik', 'Kujawa', 25, null, 'male', null, '', '', null, null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-04-04', '2016-04-04');
+call addPrimaryMember(@membershipId, 'Kels', 'Brodie', 25, null, 'male', null, '', 'bchoops1@gmail.com', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-03-21', '2016-03-21');
+call addPrimaryMember(@membershipId, 'Bill', 'Burger', 25, null, 'male', null, '', 'burger_bill@hotmail.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-03-28', '2016-03-28');
+call addPrimaryMember(@membershipId, 'Mack', 'Gollinger', 25, null, 'male', null, '', 'mpgollinger@yahoo.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-03-21', '2016-03-21');
+call addPrimaryMember(@membershipId, 'Michelle', 'Wold', 25, null, 'male', null, '7828921', '', null, null, '', '59701',
+                      'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-04-04', '2016-04-04');
+call addPrimaryMember(@membershipId, 'Dianna', 'Porter ', 25, null, 'male', null, '', 'porterdianna@hotmail.com', null,
+                      null, '', '59703', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-03-28', '2016-03-28');
+call addPrimaryMember(@membershipId, 'Kim', 'Mannix', 25, null, 'male', null, '7234191', 'kqbrown@msn.com  ', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2002-04-18', '2003-04-18');
+call addPrimaryMember(@membershipId, 'Michelle', 'Zarate', 25, null, 'male', null, '4064984627', 'nieinazakat@live.com',
+                      null, null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-03-14', '2016-03-14');
+call addPrimaryMember(@membershipId, 'Kevin', 'Pfeifer', 25, null, 'male', null, '', 'kwpfeifer@gmail.com', null, null,
+                      'Anaconda', '59711', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-04-04', '2016-04-04');
+call addPrimaryMember(@membershipId, 'Steve', 'Hess', 25, null, 'male', null, '', 'shess@bsb.mt.gov', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-02-07', '2016-02-07');
+call addPrimaryMember(@membershipId, '', 'Vincent', 25, null, 'male', null, '', 'ajkvincent@gmail.com', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-02-07', '2016-02-07');
+call addPrimaryMember(@membershipId, '', 'Watson', 25, null, 'male', null, '', '', null, null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-02-07', '2016-02-07');
+call addPrimaryMember(@membershipId, 'Suzanne', 'Stefanac', 25, null, 'male', null, '', 'suzanne.stefanac@gmail.com',
+                      null, null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-02-07', '2016-02-07');
+call addPrimaryMember(@membershipId, 'Marvin', 'Speece', 25, null, 'male', null, '', 'mspeece@mtech.edu', null, null,
+                      '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-02-07', '2016-02-07');
+call addPrimaryMember(@membershipId, '', 'Shadow', 25, null, 'male', null, '', 'sonjashadow@hmail.com', null, null,
+                      'Anaconda', '59711', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-02-07', '2016-02-07');
+call addPrimaryMember(@membershipId, '', 'Sawyer', 25, null, 'male', null, '', '', null, null, 'Anaconda', '59711',
+                      'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-02-07', '2016-02-07');
+call addPrimaryMember(@membershipId, 'Chris/Lyndsay', 'Richards', 25, null, 'male', null, '', 'lapulrer01@gmail.com',
+                      null, null, 'Three Forks', '59752', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-03-07', '2016-03-07');
+call addPrimaryMember(@membershipId, 'Joe', 'Petroni-Jodel', 25, null, 'male', null, '', '3019 Atherton Ln', null, null,
+                      '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-02-07', '2016-02-07');
+call addPrimaryMember(@membershipId, 'Chris ', 'Lu', 25, null, 'male', null, '', 'jdt2009@live.com', null, null,
+                      'Billings', '59041', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-01-07', '2016-01-07');
+call addPrimaryMember(@membershipId, 'Dave', 'Johns', 25, null, 'male', null, '', 'djohns523@hotmail.com', null, null,
+                      '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-02-06', '2016-02-06');
+call addPrimaryMember(@membershipId, 'Robert/Tabatha', 'Hyatt', 25, null, 'male', null, '', 'tabathae@outlook.com',
+                      null, null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-02-07', '2016-02-07');
+call addPrimaryMember(@membershipId, 'Shaun', 'Hoolahan', 25, null, 'male', null, '', 'shoolahan@hotmail.com', null,
+                      null, 'Anaconda', '59711', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-02-06', '2016-02-06');
+call addPrimaryMember(@membershipId, 'Lisa', 'Graham', 25, null, 'male', null, '', 'lisagh20@gmail.com', null, null, '',
+                      '59759', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-02-07', '2016-02-07');
+call addPrimaryMember(@membershipId, 'Mike', 'Flanick', 25, null, 'male', null, '', 'mflanick@gmail.com', null, null,
+                      'Ramsay', '59748', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-02-07', '2016-02-07');
+call addPrimaryMember(@membershipId, 'Erin', 'Angove', 25, null, 'male', null, '', 'becta@q.com', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-02-07', '2016-02-07');
+call addPrimaryMember(@membershipId, 'Gene', 'Ashby', 25, null, 'male', null, '', '', null, null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-02-07', '2016-02-07');
+call addPrimaryMember(@membershipId, '', 'Aware on Ottawa', 25, null, 'male', null, '', '', null, null, '', '59701',
+                      'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-02-07', '2016-02-07');
+call addPrimaryMember(@membershipId, 'Janet/Stephen', 'Coe', 25, null, 'male', null, '', 'janetmcoe@gmail.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-02-14', '2016-02-14');
+call addPrimaryMember(@membershipId, 'Patrick', 'Andre ', 25, null, 'male', null, '', 'salutpandre@yahoo.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-02-14', '2016-02-14');
+call addPrimaryMember(@membershipId, 'Wanda', 'Haller', 25, null, 'male', null, '', 'wandakp@hotmail.com', null, null,
+                      '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-02-14', '2016-02-14');
+call addPrimaryMember(@membershipId, 'Mickal', 'McCarthy', 25, null, 'male', null, '', 'mrmccarthy58@yahoo.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-02-14', '2016-02-14');
+call addPrimaryMember(@membershipId, 'Bryce', 'Hill', 25, null, 'male', null, '', 'bhill@mtech.edu', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-02-14', '2016-02-14');
+call addPrimaryMember(@membershipId, 'Cliff', 'Gade', 25, null, 'male', null, '', 'cliff_gade@hayoo.com', null, null,
+                      'Walkerville', '', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-02-14', '2016-02-14');
+call addPrimaryMember(@membershipId, 'Hansen', 'Velbr', 25, null, 'male', null, '', 'rvehere@mt.gov', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-02-14', '2016-02-14');
+call addPrimaryMember(@membershipId, 'Pat ', 'Broderick', 25, null, 'male', null, '', 'pwbcanoe99@yahoo.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-02-28', '2016-02-28');
+call addPrimaryMember(@membershipId, 'Tammy', 'Jonse', 25, null, 'male', null, '', 'sub98@bresnan.net', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-02-28', '2016-02-28');
+call addPrimaryMember(@membershipId, 'Ryan', 'Draper', 25, null, 'male', null, '', '', null, null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-02-28', '2016-02-28');
+call addPrimaryMember(@membershipId, 'Catherine', 'Lace', 25, null, 'male', null, '', 'm53m@yahoo.com', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-02-28', '2016-02-28');
+call addPrimaryMember(@membershipId, 'Tory', 'Cooper', 25, null, 'male', null, '', 'coopers1305@yahoo.com', null, null,
+                      '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-02-28', '2016-02-28');
+call addPrimaryMember(@membershipId, 'Carly', 'Peach', 25, null, 'male', null, '', 'carlyapeach@gmail.com', null, null,
+                      '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-02-28', '2016-02-28');
+call addPrimaryMember(@membershipId, 'Bruce/Peggy', 'Graving', 25, null, 'male', null, '', '', null, null, '', '59701',
+                      'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-03-07', '2016-03-07');
+call addPrimaryMember(@membershipId, 'Shilo', 'Van Tatenhove', 25, null, 'male', null, '', 'shilo_v@yahoo.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-03-07', '2016-03-07');
+call addPrimaryMember(@membershipId, 'Amber', 'Henson', 25, null, 'male', null, '', 'amberjones48@hotmail.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-03-07', '2016-03-07');
+call addPrimaryMember(@membershipId, 'Denise', 'Hendrix', 25, null, 'male', null, '', 'dhendrix49@outlook.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-03-07', '2016-03-07');
+call addPrimaryMember(@membershipId, 'Jenny', 'McEwen', 25, null, 'male', null, '', 'jennylmcewen@gmail.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-03-14', '2016-03-14');
+call addPrimaryMember(@membershipId, 'Joe', 'Lynch', 25, null, 'male', null, '', 'dtrandal@live.com', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-03-14', '2016-03-14');
+call addPrimaryMember(@membershipId, 'C', 'Schmalzried', 25, null, 'male', null, '', 'chelseaschmalzried@yahoo.com',
+                      null, null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-03-07', '2016-03-07');
+call addPrimaryMember(@membershipId, '', 'Skinner', 25, null, 'male', null, '', 'jskinner@mtech.edu', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-06-06', '2016-06-06');
+call addPrimaryMember(@membershipId, 'Missy', 'Okrusch (Kings Kids)', 25, null, 'male', null, '',
+                      'kingskids0604@hmail.com', null, null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-09-19', '2016-09-19');
+call addPrimaryMember(@membershipId, 'Judy', 'Evans', 25, null, 'male', null, '', '', null, null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-10-03', '2016-10-03');
+call addPrimaryMember(@membershipId, 'Mike', 'Patterson', 25, null, 'male', null, '', 'mhpatterson@bresnan.net', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-10-25', '2016-10-25');
+call addPrimaryMember(@membershipId, 'Dee', 'Wilson', 25, null, 'male', null, '', '', null, null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-10-24', '2016-10-24');
+call addPrimaryMember(@membershipId, 'Judi', 'Schutte', 25, null, 'male', null, '', 'judiliebman', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-10-17', '2016-10-17');
+call addPrimaryMember(@membershipId, 'John', 'Babcock', 25, null, 'male', null, '', 'jbabcock@wet-llc.com', null, null,
+                      '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-10-03', '2016-10-03');
+call addPrimaryMember(@membershipId, 'Lee', 'Good', 25, null, 'male', null, '', 'tssmail@tssmt.net', null, null,
+                      'Whitehall', '', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-10-03', '2016-10-03');
+call addPrimaryMember(@membershipId, 'Patrick', 'Broderick', 25, null, 'male', null, '', 'pwbcanoe99@yahoo.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-09-30', '2016-09-30');
+call addPrimaryMember(@membershipId, 'Mary Kay', 'Craig', 25, null, 'male', null, '', 'marykathleencraig@gmail.com',
+                      null, null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-12-05', '2016-12-05');
+call addPrimaryMember(@membershipId, 'Titus', 'Bergren', 25, null, 'male', null, '', 'titusbergren@gmail.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-01-21', '2016-01-21');
+call addPrimaryMember(@membershipId, 'Alicia', 'Kachmavik', 25, null, 'male', null, '', 'aliciawheeler@gmail.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-11-21', '2016-11-21');
+call addPrimaryMember(@membershipId, 'Elizabeth', 'Drew', 25, null, 'male', null, '', 'birddrew222@gmail.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-12-19', '2016-12-19');
+call addPrimaryMember(@membershipId, 'Pate', 'Briggs', 25, null, 'male', null, '', '', null, null, 'Anaconda', '59711',
+                      'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-12-12', '2016-12-12');
+call addPrimaryMember(@membershipId, 'Ben/Jess', 'Carr', 25, null, 'male', null, '', 'jdrewnumerouno@gmail.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-12-12', '2016-12-12');
+call addPrimaryMember(@membershipId, 'Sabina', 'Pate-Terry', 25, null, 'male', null, '', 'anatoart@yahoo.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-01-23', '2016-01-23');
+call addPrimaryMember(@membershipId, 'Ashley', 'Neighbor', 25, null, 'male', null, '', 'ashleyannneighbor@outlook.com',
+                      null, null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-04-11', '2016-04-11');
+call addPrimaryMember(@membershipId, 'Mike', 'Bordwin', 25, null, 'male', null, '', 'mbordwin@hotmail.com', null, null,
+                      '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-02-13', '2017-02-13');
+call addPrimaryMember(@membershipId, 'Allison', 'Andersen', 25, null, 'male', null, '', 'phippsqllijo@juno.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-04-30', '2017-04-30');
+call addPrimaryMember(@membershipId, 'Darla', 'Moran', 25, null, 'male', null, '', 'dmorqn51@yahoo.com', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-04-20', '2017-04-20');
+call addPrimaryMember(@membershipId, 'Theron', 'Wilson', 25, null, 'male', null, '', '', null, null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-04-17', '2017-04-17');
+call addPrimaryMember(@membershipId, 'Mike', 'Bordwin', 25, null, 'male', null, '', 'mbordwin@hotmail.com', null, null,
+                      '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-04-16', '2017-04-16');
+call addPrimaryMember(@membershipId, 'Becky', 'Fisk', 25, null, 'male', null, '', 'fiskfam4@gmail.com', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-04-09', '2017-04-09');
+call addPrimaryMember(@membershipId, 'Gary', 'Wyss', 25, null, 'male', null, '', 'wyssl@aol.com', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-04-09', '2017-04-09');
+call addPrimaryMember(@membershipId, 'C', 'Schmalzried', 25, null, 'male', null, '', 'chelseaschmalzried@yahoo.com',
+                      null, null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-05-21', '2017-05-21');
+call addPrimaryMember(@membershipId, 'Dave', 'McCarthy', 25, null, 'male', null, '', 'smelter01@gmail.com', null, null,
+                      'Anaconda', '59711', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-05-21', '2017-05-21');
+call addPrimaryMember(@membershipId, 'Lucy', 'Ednie', 25, null, 'male', null, '', 'lucysupernurse@gmail.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-05-21', '2017-05-21');
+call addPrimaryMember(@membershipId, 'Jason', 'Korst', 25, null, 'male', null, '', 'korsty@hotmail.com', null, null,
+                      'Whitehall', '59759', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-05-21', '2017-05-21');
+call addPrimaryMember(@membershipId, 'Rozanne', 'Conley', 25, null, 'male', null, '', 'roxannec1969@yahoo.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-05-07', '2017-05-07');
+call addPrimaryMember(@membershipId, 'JJ', 'Bestgen', 25, null, 'male', null, '', '', null, null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-03-12', '2017-03-12');
+call addPrimaryMember(@membershipId, 'Rick', 'Jordan', 25, null, 'male', null, '', 'rjordan@barrick.com', null, null,
+                      '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-03-12', '2017-03-12');
+call addPrimaryMember(@membershipId, 'Mike', 'Nasheim', 25, null, 'male', null, '', 'san21456@gmail.com', null, null,
+                      '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-01', '2017-01-01');
+call addPrimaryMember(@membershipId, 'Alyssa', 'Creighton', 25, null, 'male', null, '', '', null, null, 'Dillon',
+                      '59725', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-02-13', '2017-02-13');
+call addPrimaryMember(@membershipId, 'Lesley', 'Holman', 25, null, 'male', null, '', 'holmanla@butte.k12.mt.us ', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-19', '2017-01-19');
+call addPrimaryMember(@membershipId, 'Gene/Tammy', 'Jense', 25, null, 'male', null, '', 'sub90@bresnan.net', null, null,
+                      '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-19', '2017-01-19');
+call addPrimaryMember(@membershipId, '', 'Skinner', 25, null, 'male', null, '', 'wgskinn@hotmail.com', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-23', '2017-01-23');
+call addPrimaryMember(@membershipId, '', 'Callaghan', 25, null, 'male', null, '', 'callaghanwe@butte.k12.mt.us', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-23', '2017-01-23');
+call addPrimaryMember(@membershipId, 'Chandra', 'Duran', 25, null, 'male', null, '', 'chandraduran@hotmail.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-23', '2017-01-23');
+call addPrimaryMember(@membershipId, 'Shella', 'Capaccia', 25, null, 'male', null, '', 'scapoccia@mttech.edu', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-11-23', '2017-11-23');
+call addPrimaryMember(@membershipId, 'Tim', 'Lynch', 25, null, 'male', null, '', 'tlynch@bresnan.net', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-23', '2017-01-23');
+call addPrimaryMember(@membershipId, 'Tracy', 'Cannon', 25, null, 'male', null, '', 'tracyc-tech@yahoo.com', null, null,
+                      '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-23', '2017-01-23');
+call addPrimaryMember(@membershipId, 'Tina', 'Pantano', 25, null, 'male', null, '', 'tmpantano@yahoo.com', null, null,
+                      '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-23', '2017-01-23');
+call addPrimaryMember(@membershipId, 'Sheilah', 'VIncent', 25, null, 'male', null, '', 'elvisbutte@yahoo.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-23', '2017-01-23');
+call addPrimaryMember(@membershipId, '', 'Brady', 25, null, 'male', null, '', '', null, null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-30', '2017-01-30');
+call addPrimaryMember(@membershipId, 'Evan', 'Barrett', 25, null, 'male', null, '', 'evanbutte@bresnan.net', null, null,
+                      '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-09-23', '2017-09-23');
+call addPrimaryMember(@membershipId, 'Larry', 'Hoffman', 25, null, 'male', null, '', 'hardrock4800@gmail.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-09-24', '2017-09-24');
+call addPrimaryMember(@membershipId, 'Cormic', 'Sletten', 25, null, 'male', null, '', 'acombo@bldc.net', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-09-25', '2017-09-25');
+call addPrimaryMember(@membershipId, '', 'Ball', 25, null, 'male', null, '', 'ball7134@hotmail.com', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-10-01', '2017-10-01');
+call addPrimaryMember(@membershipId, 'Dolores', 'Cooney', 25, null, 'male', null, '', 'dcooney@bresnan.net', null, null,
+                      '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-10-08', '2017-10-08');
+call addPrimaryMember(@membershipId, 'Rounds', 'Shuttlesworth', 25, null, 'male', null, '', 'h/rounds@gmail.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-10-08', '2017-10-08');
+call addPrimaryMember(@membershipId, 'Avi', 'Masters', 25, null, 'male', null, '', 'mmasters@mtech.edu', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-10-08', '2017-10-08');
+call addPrimaryMember(@membershipId, 'Tera', 'Ryan', 25, null, 'male', null, '', 'bryan@mtech.edu', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-10-08', '2017-10-08');
+call addPrimaryMember(@membershipId, 'Asna', 'Henne/capocca', 25, null, 'male', null, '', 'scapoccia@mtech.edu', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-10-08', '2017-10-08');
+call addPrimaryMember(@membershipId, 'Terry', 'Pate', 25, null, 'male', null, '', 'anatoart@yahoo.com', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-10-08', '2017-10-08');
+call addPrimaryMember(@membershipId, 'Barbie', 'Huber', 25, null, 'male', null, '', 'barbiehuber@hotmail.com', null,
+                      null, 'Bozeman', '', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-10-14', '2017-10-14');
+call addPrimaryMember(@membershipId, 'Kelly', 'Thatcher', 25, null, 'male', null, '', 'jayhubber24@aol.com', null, null,
+                      '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-10-15', '2017-10-15');
+call addPrimaryMember(@membershipId, 'Amber/Dennis', 'Osterman', 25, null, 'male', null, '', 'osterwoman@gmail.com',
+                      null, null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-10-15', '2017-10-15');
+call addPrimaryMember(@membershipId, 'Jeannine', 'Boyle', 25, null, 'male', null, '', 'jeboylesr@sbcglobal.net', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-10-15', '2017-10-15');
+call addPrimaryMember(@membershipId, 'Ottolini', 'Messukri', 25, null, 'male', null, '', 'aottolinimessuri@mtech.edu',
+                      null, null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-10-22', '2017-10-22');
+call addPrimaryMember(@membershipId, '', 'Vavruska', 25, null, 'male', null, '', 'invavruska@bresnan.net', null, null,
+                      'Helena', '59635', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-10-29', '2017-10-29');
+call addPrimaryMember(@membershipId, 'Robin', 'Johnson', 25, null, 'male', null, '', '', null, null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-10-29', '2017-10-29');
+call addPrimaryMember(@membershipId, 'Melissa', 'Kump', 25, null, 'male', null, '', 'melissaann49@hotmail.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-10-29', '2017-10-29');
+call addPrimaryMember(@membershipId, 'Patrick', 'Broderick', 25, null, 'male', null, '', 'pwbcanoe99@yahoo.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-11-05', '2017-11-05');
+call addPrimaryMember(@membershipId, 'Shane/Heather', 'Davis', 25, null, 'male', null, '', 'hmdavisdum@gmail.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-11-05', '2017-11-05');
+call addPrimaryMember(@membershipId, 'JoAnna', 'Buchholz', 25, null, 'male', null, '', 'joanna_buchholz@yahoo.com',
+                      null, null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-11-05', '2017-11-05');
+call addPrimaryMember(@membershipId, 'Robert', 'Moler', 25, null, 'male', null, '', 'robertmoler@gmail.com', null, null,
+                      'Helena', '59601', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-11-12', '2017-11-12');
+call addPrimaryMember(@membershipId, 'Oly', 'Petersen', 25, null, 'male', null, '', '', null, null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-11-26', '2017-11-26');
+call addPrimaryMember(@membershipId, 'Marlene', 'Worthon', 25, null, 'male', null, '', 'marlenegreen3@gmail.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-11-26', '2017-11-26');
+call addPrimaryMember(@membershipId, 'Bryan/Mandy', 'Armstrong', 25, null, 'male', null, '', '', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2017-04-22', '2018-04-22');
+call addPrimaryMember(@membershipId, '', 'Walsh', 25, null, 'male', null, '', 'mlwalsh@bresnan.net', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2017-06-03', '2018-06-03');
+call addPrimaryMember(@membershipId, 'Glenn', 'Brackett', 25, null, 'male', null, '', 'glencris@bresnan.net', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2017-06-03', '2018-06-03');
+call addPrimaryMember(@membershipId, '', 'Schulte', 25, null, 'male', null, '', 'gregoryjamesschulte@gmail.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2017-06-10', '2018-06-10');
+call addPrimaryMember(@membershipId, 'Carol', 'Smith', 25, null, 'male', null, '', '', null, null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2017-06-10', '2018-06-10');
+call addPrimaryMember(@membershipId, 'Gayle', 'Nicholls', 25, null, 'male', null, '', 'gnicholls@bresnan.net', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2017-06-17', '2018-06-17');
+call addPrimaryMember(@membershipId, 'Dolores', 'Cooney', 25, null, 'male', null, '', 'dcooney@bresnan.net', null, null,
+                      '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2017-06-17', '2018-06-17');
+call addPrimaryMember(@membershipId, 'Fred/Bev', 'Hartline', 25, null, 'male', null, '', 'fbhartl@earthlink.net', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2017-06-24', '2018-06-24');
+call addPrimaryMember(@membershipId, 'Missy', 'Okrusch', 25, null, 'male', null, '', 'kingskids0604@gmail.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2017-06-24', '2018-06-24');
+call addPrimaryMember(@membershipId, 'Decia', 'Newby', 25, null, 'male', null, '', 'jaconandecia@gmail.com', null, null,
+                      '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2017-06-24', '2018-06-24');
+call addPrimaryMember(@membershipId, '', 'Naglsetty', 25, null, 'male', null, '', 'jyoti.nagisetty@gmail.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2027-06-24', '2028-06-24');
+call addPrimaryMember(@membershipId, '', 'Jamison', 25, null, 'male', null, '', 'shawnajamison@hotmail.com', null, null,
+                      '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2017-01-28', '2018-01-28');
+call addPrimaryMember(@membershipId, 'Allison', 'Andersen', 25, null, 'male', null, '', 'phippsallijoa@juno.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2017-02-04', '2018-02-04');
+call addPrimaryMember(@membershipId, 'Ben', 'Clark', 25, null, 'male', null, '', 'lineman669@gmail.com', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2017-02-04', '2018-02-04');
+call addPrimaryMember(@membershipId, '', 'Hasslers', 25, null, 'male', null, '', 'kpowley@yahoo.com', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2017-01-14', '2018-01-14');
+call addPrimaryMember(@membershipId, 'Gayle', 'Nicholls', 25, null, 'male', null, '', 'gnicholls@bresnan.net', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2017-01-14', '2018-01-14');
+call addPrimaryMember(@membershipId, 'Catherine', 'Lace', 25, null, 'male', null, '', 'm53m@yahoo.com', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2017-01-14', '2018-01-14');
+call addPrimaryMember(@membershipId, 'Havilah', 'Hill', 25, null, 'male', null, '', 'havilahhill@gmail.com', null, null,
+                      '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-01', '2017-01-01');
+call addPrimaryMember(@membershipId, 'Cormic', 'Sletten', 25, null, 'male', null, '', 'acombo@bldc.net', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2017-01-17', '2018-01-17');
+call addPrimaryMember(@membershipId, 'Paige', 'Thompson', 25, null, 'male', null, '', 'mthompson1828@gmail.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2017-02-04', '2018-02-04');
+call addPrimaryMember(@membershipId, 'Tyler', 'Storey', 25, null, 'male', null, '', 'xtyler.storeyx@gmail.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2017-04-08', '2018-04-08');
+call addPrimaryMember(@membershipId, 'Kim', 'Ward', 25, null, 'male', null, '', 'wardlk4@gmail.com', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2017-04-08', '2018-04-08');
+call addPrimaryMember(@membershipId, 'J', 'Ball', 25, null, 'male', null, '', 'ball7134@hotmail.com', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2017-04-08', '2018-04-08');
+call addPrimaryMember(@membershipId, '', 'Welker', 25, null, 'male', null, '', 'nicwelker@gmail.com', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2017-05-17', '2018-05-17');
+call addPrimaryMember(@membershipId, '', 'Cyr', 25, null, 'male', null, '', 'cyr61us@yahoo.com', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2017-05-20', '2018-05-20');
+call addPrimaryMember(@membershipId, 'John', 'Babcock', 25, null, 'male', null, '', 'johnbabcock@hotmail.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2017-05-27', '2018-05-27');
+call addPrimaryMember(@membershipId, 'Fallen', 'Bennett', 25, null, 'male', null, '', 'maggie.pierce@youthdynamics.org',
+                      null, null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-01', '2017-01-01');
+call addPrimaryMember(@membershipId, 'Dave', 'Holman', 25, null, 'male', null, '', 'jetdog23@aol.com', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-01', '2017-01-01');
+call addPrimaryMember(@membershipId, 'Megan', 'O\'keefe', 25, null, 'male', null, '', '', null, null, '', '59701',
+                      'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-01', '2017-01-01');
+call addPrimaryMember(@membershipId, 'Ryan', 'Mullcahy', 25, null, 'male', null, '', '', null, null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-04-18', '2016-04-18');
+call addPrimaryMember(@membershipId, 'Todd/Mitzi', 'Leibrand', 25, null, 'male', null, '', '', null, null, '', '59421',
+                      'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-01', '2017-01-01');
+call addPrimaryMember(@membershipId, 'Lee', 'Tierney', 25, null, 'male', null, '', 'ltiern8@gmail.com', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-01', '2017-01-01');
+call addPrimaryMember(@membershipId, 'Nate', 'Watson', 25, null, 'male', null, '', 'nate.watson82@gmail.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-01', '2017-01-01');
+call addPrimaryMember(@membershipId, 'Maggie', 'Ferko', 25, null, 'male', null, '', 'margaretferko@yahoo.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-01', '2017-01-01');
+call addPrimaryMember(@membershipId, 'Larry/Nancy', 'Hoffman', 25, null, 'male', null, '', 'hardrock4800@gmail.com',
+                      null, null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-01', '2017-01-01');
+call addPrimaryMember(@membershipId, 'Laura', 'Moore', 25, null, 'male', null, '', 'laurazorn3@gmail.com', null, null,
+                      '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-01', '2017-01-01');
+call addPrimaryMember(@membershipId, 'Hilary', 'Risser', 25, null, 'male', null, '', 'hsrisser@mac.com', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-01', '2017-01-01');
+call addPrimaryMember(@membershipId, 'John', 'Tomich', 25, null, 'male', null, '', 'jtomich@bresnan.net', null, null,
+                      '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-01', '2017-01-01');
+call addPrimaryMember(@membershipId, 'Pam', 'Dazby-Cote', 25, null, 'male', null, '', 'pamcote114@msn.com', null, null,
+                      '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-01', '2017-01-01');
+call addPrimaryMember(@membershipId, 'J.', 'Boyer', 25, null, 'male', null, '', 'jamieboyer1130@hotmail.com', null,
+                      null, 'Anaconda', '59711', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-02-28', '2016-02-28');
+call addPrimaryMember(@membershipId, 'Ben', 'Rapkod', 25, null, 'male', null, '', 'claudiarap59701@msn.com', null, null,
+                      '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-01', '2017-01-01');
+call addPrimaryMember(@membershipId, 'Susan', 'Callaghan', 25, null, 'male', null, '', 'sjcmt2003@yahoo.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-02-28', '2016-02-28');
+call addPrimaryMember(@membershipId, 'Taryn', 'Calderon', 25, null, 'male', null, '', 'tarynj21691@gmail.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-01', '2017-01-01');
+call addPrimaryMember(@membershipId, 'Allison', 'Andersen', 25, null, 'male', null, '', 'phippsallijo@juno.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-10-24', '2016-10-24');
+call addPrimaryMember(@membershipId, 'Chrissy', 'Hadley', 25, null, 'male', null, '', 'clhadley@gmail.com', null, null,
+                      '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-01', '2017-01-01');
+call addPrimaryMember(@membershipId, 'Kathleen', 'Moore', 25, null, 'male', null, '', 'kmoore@cherrycreekradio.org',
+                      null, null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-01', '2017-01-01');
+call addPrimaryMember(@membershipId, 'Michelle', 'Wold', 25, null, 'male', null, '', 'tcmmwold9000@gmail.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-01', '2017-01-01');
+call addPrimaryMember(@membershipId, 'Sarah', 'Storey', 25, null, 'male', null, '', 'sstorey@mtech.edu', null, null, '',
+                      '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-01', '2017-01-01');
+call addPrimaryMember(@membershipId, 'Randi', 'Luke', 25, null, 'male', null, '', 'randijo.luke@yahoo.com', null, null,
+                      '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-10-03', '2016-10-03');
+call addPrimaryMember(@membershipId, 'Katherine/James', 'Sweet', 25, null, 'male', null, '', 'kgames1021@yahoo.com',
+                      null, null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-01', '2017-01-01');
+call addPrimaryMember(@membershipId, 'Andrew', 'Calderon', 25, null, 'male', null, '', 'tarynj21691@gmail.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2017-01-21', '2018-01-21');
+call addPrimaryMember(@membershipId, 'Ryan/Lindsey', 'Toderovich', 25, null, 'male', null, '',
+                      'lindseytoderovich@gmail.com', null, null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-01', '2017-01-01');
+call addPrimaryMember(@membershipId, 'Logan', 'Dudding', 25, null, 'male', null, '', 'lwdudding@gmail.com', null, null,
+                      '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2017-04-08', '2018-04-08');
+call addPrimaryMember(@membershipId, 'Jason/Jennifer', 'Hands', 25, null, 'male', null, '', 'lilyuma@live.com', null,
+                      null, 'Wiseriver', '59762', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2017-04-29', '2018-04-29');
+call addPrimaryMember(@membershipId, 'Amanda', 'Ortiz-Cabrera', 25, null, 'male', null, '', 'aortiz@mtech.edu', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-01', '2017-01-01');
+call addPrimaryMember(@membershipId, '', 'Moran', 25, null, 'male', null, '', '', null, null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-01', '2017-01-01');
+call addPrimaryMember(@membershipId, 'James', 'Hadley', 25, null, 'male', null, '', 'mtcarddealer@gmail.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2017-04-29', '2018-04-29');
+call addPrimaryMember(@membershipId, '', 'Persons', 25, null, 'male', null, '', 'twopersons4jesus@bresnan.net', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2015-10-24', '2016-10-24');
+call addPrimaryMember(@membershipId, 'Claudial/Brent', 'Rapkoch', 25, null, 'male', null, '', 'claudiarap59701@msn.com',
+                      null, null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-01', '2017-01-01');
+call addPrimaryMember(@membershipId, 'Denise', 'Hendrix', 25, null, 'male', null, '', 'dhendrix49@outlook.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-01', '2017-01-01');
+call addPrimaryMember(@membershipId, 'Janet/Stephen', 'Coe', 25, null, 'male', null, '', 'janetmcoe@gmail.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-01', '2017-01-01');
+call addPrimaryMember(@membershipId, 'Lani', 'Odenbeck', 25, null, 'male', null, '', 'loni.odenbeckdvm@gmail.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-01', '2017-01-01');
+call addPrimaryMember(@membershipId, 'Maggie/Logan', 'Matteson', 25, null, 'male', null, '', 'magzrhax@yahoo.com', null,
+                      null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-01', '2017-01-01');
+call addPrimaryMember(@membershipId, 'Lawrence', 'Weirick (Family Outreach)', 25, null, 'male', null, '',
+                      'lawrenw@gmail.com', null, null, '', '59701', 'MT');
+call addMembership('seasonal', 0);
+set @membershipId = last_insert_id();
+call addMembershipPeriod(@membershipId, '2016-01-01', '2017-01-01');
+call addPrimaryMember(@membershipId, 'T', 'McCullak', 25, null, 'male', null, '', 'toshmcc3@gmail.com', null, null, '',
+                      '59701', 'MT');
