@@ -1,3 +1,9 @@
 *.bak
 ._*
 ~$*
+.DS_Store*
+*/node_modules*
+SM_Membership_API/SM_Membership_Data/obj*
+SM_Membership_API/SM_Membership_Data/bin*
+SM_Membership_API/SM_Membership_API/obj*
+*.idea*

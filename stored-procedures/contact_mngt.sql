@@ -1,80 +1,10 @@
-# ###########################
-# PrimaryMember
-# ###########################
-
-drop procedure if exists `addPrimaryMember`;
-create procedure `addPrimaryMember`(_membershipId int, first varchar(45), last varchar(45), age int,
-                                    ethnicityName varchar(45),
-                                    gender enum ('male', 'female'), accommodation varchar(45), phone varchar(10),
-                                    email varchar(45), company varchar(45), street varchar(45), city varchar(45),
-                                    zip varchar(10), state varchar(2))
-begin
-  select id from Membership where id = _membershipId;
-  if (found_rows() = 1 and (select count(*) from `PrimaryMember` where membershipId = _membershipId) = 0)
-  then
-    call `addMember`(_membershipId, first, last, age, ethnicityName, gender, accommodation, phone, email, company, street, city, zip,
-                     state, @memberId);
-    insert into PrimaryMember (memberId, membershipId)
-    values (@memberId, _membershipId);
-  end if;
-end;
-
-# Updates the membershipId of the primary member
-drop procedure if exists `updatePrimaryMember`;
-create procedure `updatePrimaryMember`(_id int, _membershipId int)
-begin
-  select id from `Membership` where id = _membershipId;
-  if (found_rows() = 1)
-  then
-    update `PrimaryMember` set membershipId = _membershipId where memberId = _id;
-  end if;
-end;
-
-# ###########################
-# PrimaryMember END
-# ###########################
-
-# ###########################
-# SecondaryMember
-# ###########################
-
-drop procedure if exists `addSecondaryMember`;
-create procedure `addSecondaryMember`(_membershipId int, first varchar(45), last varchar(45), age int,
-                                    ethnicityName varchar(45),
-                                    gender enum ('male', 'female'), accommodation varchar(45), phone varchar(10),
-                                    email varchar(45), company varchar(45), street varchar(45), city varchar(45),
-                                    zip varchar(10), state varchar(2))
-begin
-  select memberId into @primaryMemberId from `PrimaryMember` where membershipId = _membershipId;
-  if (found_rows() = 1 and (select count(*) from `PrimaryMember` where membershipId = _membershipId) = 1)
-  then
-    call `addMember`(_membershipId, first, last, age, ethnicityName, gender, accommodation, phone, email, company, street, city, zip,
-                     state, @memberId);
-    insert into `SecondaryMember` (memberId, primaryMemberId)
-    values (@memberId, @primaryMemberId);
-  end if;
-end;
-
-# Updates the primaryMemberId of the secondary member
-drop procedure if exists `updateSecondaryMember`;
-create procedure `updateSecondaryMember`(_id int, _primaryMemberId int)
-begin
-  select id from `Membership` where id = _primaryMemberId;
-  if (found_rows() = 1)
-  then
-    update `SecondaryMember` set primaryMemberId = _primaryMemberId where memberId = _id;
-  end if;
-end;
-
-# ###########################
-# SecondaryMember END
-# ###########################
+DELIMITER $$
 
 # ###########################
 # Member
 # ###########################
 
-drop procedure if exists `addMember`;
+drop procedure if exists `addMember` $$
 create procedure `addMember`(_membershipId int, first varchar(45), last varchar(45), age int, ethnicityName varchar(45),
                              _gender enum ('male', 'female'), accommodation varchar(45), phone varchar(10),
                              email varchar(45), company varchar(45), street varchar(45), city varchar(45),
@@ -98,10 +28,11 @@ begin
       select last_insert_id() into memberId;
       call `addContactInformation`(memberId, phone, email, company, street, city, zip, state);
     end if;
+    else select 'Invalid Age Range';
   end if;
-end;
+end $$
 
-drop procedure if exists `updateMember`;
+drop procedure if exists `updateMember` $$
 create procedure `updateMember`(_id int, first varchar(45), last varchar(45), age int, ethnicityName varchar(45),
                                 _gender enum ('male', 'female'), accommodation varchar(45), phone varchar(10),
                                 email varchar(45), company varchar(45), street varchar(45), city varchar(45),
@@ -131,7 +62,7 @@ begin
       call `updateContactInformation`(_Id, phone, email, company, street, city, zip, state);
     end if;
   end if;
-end;
+end $$
 
 # ###########################
 # Member END
@@ -141,7 +72,7 @@ end;
 # ContactInformation
 # ###########################
 
-drop procedure if exists `addContactInformation`;
+drop procedure if exists `addContactInformation` $$
 create procedure `addContactInformation`(_memberId int, phone varchar(10), _email varchar(45), company varchar(45),
                                          _street varchar(45), _city varchar(45), _zip varchar(10), _state varchar(2))
 begin
@@ -156,9 +87,9 @@ begin
     end if;
 
   end if;
-end;
+end $$
 
-drop procedure if exists `updateContactInformation`;
+drop procedure if exists `updateContactInformation` $$
 create procedure `updateContactInformation`(_memberId int, phone varchar(10), _email varchar(45), company varchar(45),
                                             _street varchar(45), _city varchar(45), _zip varchar(10), _state varchar(2))
 begin
@@ -171,8 +102,10 @@ begin
       zip         = _zip,
       state       = _state
   where memberId = _memberId;
-end;
+end $$
 
 # ###########################
 # ContactInformation END
 # ###########################
+
+DELIMITER ;

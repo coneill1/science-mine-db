@@ -1,8 +1,10 @@
+DELIMITER $$
+
 # #######################
 # SpecialAccommodation
 # #######################
 
-drop procedure if exists `updateSpecialAccommodation`;
+drop procedure if exists `updateSpecialAccommodation`$$
 CREATE PROCEDURE `updateSpecialAccommodation`(oldName varchar(45), newName varchar(45))
 begin
   # First check if accommodation exists, then do nothing, otherwise update
@@ -11,9 +13,9 @@ begin
   then
     update `SpecialAccommodation` set type=newName where id = @_id;
   end if;
-end;
+end $$
 
-drop procedure if exists `addSpecialAccommodation`;
+drop procedure if exists `addSpecialAccommodation` $$
 CREATE PROCEDURE `addSpecialAccommodation`(name VARCHAR(45))
 BEGIN
   #   First check if already present, and do nothing
@@ -22,9 +24,9 @@ BEGIN
   THEN
     INSERT INTO `SpecialAccommodation` (id, type) VALUES (NULL, name);
   END IF;
-end;
+end $$
 
-drop procedure if exists `deleteSpecialAccommodation`;
+drop procedure if exists `deleteSpecialAccommodation` $$
 CREATE PROCEDURE `deleteSpecialAccommodation`(name VARCHAR(45))
 BEGIN
   #   First check if exists, then delete
@@ -36,7 +38,7 @@ BEGIN
 
     delete from `SpecialAccommodation` where id = @id;
   END IF;
-end;
+end $$
 
 # #######################
 # SpecialAccommodation END
@@ -46,7 +48,7 @@ end;
 # Ethnicity
 # #######################
 
-drop procedure if exists `addEthnicity`;
+drop procedure if exists `addEthnicity` $$
 create procedure `addEthnicity`(newName varchar(45))
 begin
   # First check if ethnicity exists
@@ -55,9 +57,9 @@ begin
   then
     insert into `Ethnicity` (id, name) VALUES (null, newName);
   end if;
-end;
+end $$
 
-drop procedure if exists `updateEthnicity`;
+drop procedure if exists `updateEthnicity` $$
 create procedure `updateEthnicity`(_id int, newName varchar(45))
 begin
   # First check if ethnicity exists
@@ -66,9 +68,9 @@ begin
   then
     update `Ethnicity` set name = newName where id = _id;
   end if;
-end;
+end $$
 
-drop procedure if exists `deleteEthnicity`;
+drop procedure if exists `deleteEthnicity` $$
 create procedure `deleteEthnicity`(_id int, newName varchar(45))
 begin
   # First check if ethnicity exists
@@ -80,7 +82,7 @@ begin
 
     delete from `Ethnicity` where id = _id;
   end if;
-end;
+end $$
 
 # #######################
 # Ethnicity END
@@ -90,7 +92,7 @@ end;
 # AgeRange
 # #######################
 
-drop procedure if exists `addAgeRange`;
+drop procedure if exists `addAgeRange` $$
 create procedure `addAgeRange`(_low int, _high int)
 begin
   # First check if ethnicity exists
@@ -100,9 +102,9 @@ begin
     insert into `AgeRange` (high, low)
     values (_high, _low);
   end if;
-end;
+end $$
 
-drop procedure if exists `updateAgeRange`;
+drop procedure if exists `updateAgeRange` $$
 create procedure `updateAgeRange`(_id int, _low int, _high int)
 begin
   # First check if ethnicity exists
@@ -111,7 +113,7 @@ begin
   then
     update `AgeRange` set low = _low, high = _high where id = _id;
   end if;
-end;
+end $$
 
 # #######################
 # AgeRange END
@@ -121,7 +123,7 @@ end;
 # MembershipType
 # ####################
 
-drop procedure if exists `addMembershipType`;
+drop procedure if exists `addMembershipType` $$
 create procedure `addMembershipType`(type varchar(45))
 begin
   select name from MembershipType where lower(type) = lower(name);
@@ -130,9 +132,9 @@ begin
     insert into MembershipType (name)
     values (type);
   end if;
-end;
+end $$
 
-drop procedure if exists `updateMembershipType`;
+drop procedure if exists `updateMembershipType` $$
 create procedure `updateMembershipType`(_id int, type varchar(45))
 begin
   select id from MembershipType where _id = id;
@@ -140,7 +142,7 @@ begin
   then
     update MembershipType set name = type where id = _id;
   end if;
-end;
+end $$
 
 # ####################
 # MembershipType END
@@ -150,7 +152,7 @@ end;
 # Reason
 # ####################
 
-drop procedure if exists `addReason`;
+drop procedure if exists `addReason` $$
 create procedure `addReason`(type varchar(45))
 begin
   select name from Reason where lower(type) = lower(name);
@@ -159,9 +161,9 @@ begin
     insert into Reason (id)
     values (type);
   end if;
-end;
+end $$
 
-drop procedure if exists `updateReason`;
+drop procedure if exists `updateReason` $$
 create procedure `updateReason`(_id int, type varchar(45))
 begin
   select id from Reason where _id = id;
@@ -169,9 +171,9 @@ begin
   then
     update Reason set name = type where id = _id;
   end if;
-end;
+end $$
 
-drop procedure if exists `deleteReason`;
+drop procedure if exists `deleteReason` $$
 create procedure `deleteReason`(_id int)
 begin
   select id from Reason where _id = id;
@@ -186,7 +188,7 @@ begin
 
     delete from `Reason` where id = _id;
   end if;
-end;
+end $$
 
 # ####################
 # Reason END
@@ -196,7 +198,7 @@ end;
 # Venue
 # ####################
 
-drop procedure if exists `addVenue`;
+drop procedure if exists `addVenue` $$
 create procedure `addVenue`(venueName varchar(45))
 begin
   select id from `Venue` where lower(name) = lower(venueName);
@@ -205,9 +207,9 @@ begin
     insert into `Venue` (name)
     values (venueName);
   end if;
-end;
+end $$
 
-drop procedure if exists `updateVenue`;
+drop procedure if exists `updateVenue` $$
 create procedure `updateVenue`(_id int, venueName varchar(45))
 begin
   select id from `Venue` where id = _id;
@@ -215,9 +217,9 @@ begin
   then
     update `Venue` set name = venueName where id = _id;
   end if;
-end;
+end $$
 
-drop procedure if exists `deleteVenue`;
+drop procedure if exists `deleteVenue` $$
 create procedure `deleteVenue`(_id int)
 begin
   select id from `Venue` where id = _id;
@@ -227,7 +229,7 @@ begin
     update `Encounter` set venueId = null where venueId = _id;
     delete from `Venue` where id = _id;
   end if;
-end;
+end $$
 
 # ####################
 # Venue END
@@ -237,7 +239,7 @@ end;
 # Staff
 # ####################
 
-drop procedure if exists `addStaff`;
+drop procedure if exists `addStaff` $$
 create procedure `addStaff`(_name varchar(45))
 begin
   select id from `Staff` where lower(name) = lower(_name);
@@ -246,9 +248,9 @@ begin
     insert into `Staff` (name)
     values (_name);
   end if;
-end;
+end $$
 
-drop procedure if exists `updateStaff`;
+drop procedure if exists `updateStaff` $$
 create procedure `updateStaff`(_id int, _name varchar(45))
 begin
   select id from `Staff` where lower(name) = lower(_name);
@@ -256,9 +258,9 @@ begin
   then
     update `Staff` set name = _name where id = _id;
   end if;
-end;
+end $$
 
-drop procedure if exists `deleteStaff`;
+drop procedure if exists `deleteStaff` $$
 create procedure `deleteStaff`(_id int)
 begin
   select id from `Staff` where id = _id;
@@ -267,10 +269,12 @@ begin
     update `DriverToMembership` set staffId = null where staffId = _id;
     delete from `Staff` where id = _id;
   end if;
-end;
+end $$
 
 # ####################
 # Staff END
 # ####################
 
-# show procedure status where Db = 'ScienceMine'
+# show procedure status where Db = 'ScienceMine';
+
+DELIMITER ;
