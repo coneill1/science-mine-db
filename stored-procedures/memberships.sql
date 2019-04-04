@@ -3,17 +3,12 @@ DELIMITER $$
 # Adds a membership and adds the primary member of the newly created membership
 drop procedure if exists `createMembership` $$
 create procedure `createMembership`(type varchar(45), active bit(1), _start datetime, _end datetime, first varchar(45),
-                                    last varchar(45), age int,
-                                    ethnicityName varchar(45), _gender enum ('male', 'female'),
-                                    accommodation varchar(45), phone varchar(10),
-                                    email varchar(45), company varchar(45), street varchar(45), city varchar(45),
-                                    zip varchar(10), state varchar(2))
+                                    last varchar(45), age int, _gender enum ('male', 'female'), ethnicityName varchar(45))
 begin
   start transaction ;
   call addMembership(type, active, null);
   set @membershipId = last_insert_id();
-  call addMember(@membershipId, first, last, age, ethnicityName, _gender, accommodation, phone, email, company, street,
-                 city, zip, state, @memberId);
+  call addMember(@membershipId, first, last, age, _gender, ethnicityName, @memberId);
   call addMembershipPeriod(@membershipId, _start, _end);
 
   call updateMembership(@membershipId, type, active, @memberId);

@@ -5,13 +5,13 @@ DELIMITER $$
 # #######################
 
 drop procedure if exists `updateSpecialAccommodation`$$
-CREATE PROCEDURE `updateSpecialAccommodation`(oldName varchar(45), newName varchar(45))
+CREATE PROCEDURE `updateSpecialAccommodation`(_id int, newName varchar(45))
 begin
   # First check if accommodation exists, then do nothing, otherwise update
-  select id into @_id from `SpecialAccommodation` where lower(type) = lower(oldName);
-  if (FOUND_ROWS() != 0)
+  select count(*) into @count from `SpecialAccommodation` where id = _id;
+  if (@count != 0)
   then
-    update `SpecialAccommodation` set type=newName where id = @_id;
+    update `SpecialAccommodation` set type=newName where id = _id;
   end if;
 end $$
 
@@ -19,24 +19,25 @@ drop procedure if exists `addSpecialAccommodation` $$
 CREATE PROCEDURE `addSpecialAccommodation`(name VARCHAR(45))
 BEGIN
   #   First check if already present, and do nothing
-  SELECT id FROM `SpecialAccommodation` WHERE LOWER(type) = LOWER(name);
-  IF (FOUND_ROWS() = 0)
+  SELECT count(*) into @count FROM `SpecialAccommodation` WHERE LOWER(type) = LOWER(name);
+  IF (@count = 0)
   THEN
     INSERT INTO `SpecialAccommodation` (id, type) VALUES (NULL, name);
   END IF;
 end $$
 
 drop procedure if exists `deleteSpecialAccommodation` $$
-CREATE PROCEDURE `deleteSpecialAccommodation`(name VARCHAR(45))
+CREATE PROCEDURE `deleteSpecialAccommodation`(deleteId int, replaceId int)
 BEGIN
   #   First check if exists, then delete
-  SELECT id INTO @id FROM `SpecialAccommodation` WHERE LOWER(type) = LOWER(name);
-  IF (FOUND_ROWS() = 1)
+  SELECT count(*) into @count FROM `SpecialAccommodation` WHERE id = deleteId or id = replaceId;
+  IF (@count = 2)
   THEN
-    #     update member info
-    update Member set specialAccommodationId = null where id = @id;
-
-    delete from `SpecialAccommodation` where id = @id;
+    start transaction ;
+    #   Update all members that had the special accommodation to be deleted with the replace special accommodation
+    update Member set specialAccommodationId = replaceId where specialAccommodationId = deleteId;
+    delete from `SpecialAccommodation` where id = deleteId;
+    commit;
   END IF;
 end $$
 
@@ -52,8 +53,8 @@ drop procedure if exists `addEthnicity` $$
 create procedure `addEthnicity`(newName varchar(45))
 begin
   # First check if ethnicity exists
-  select id from `Ethnicity` where lower(name) = lower(newName);
-  if (FOUND_ROWS() = 0)
+  select count(*) into @count from `Ethnicity` where lower(name) = lower(newName);
+  if (@count = 0)
   then
     insert into `Ethnicity` (id, name) VALUES (null, newName);
   end if;
@@ -63,24 +64,26 @@ drop procedure if exists `updateEthnicity` $$
 create procedure `updateEthnicity`(_id int, newName varchar(45))
 begin
   # First check if ethnicity exists
-  select id from `Ethnicity` where id = _id;
-  if (FOUND_ROWS() = 1)
+  select count(*) into @count from `Ethnicity` where id = _id;
+  if (@count = 1)
   then
     update `Ethnicity` set name = newName where id = _id;
   end if;
 end $$
 
 drop procedure if exists `deleteEthnicity` $$
-create procedure `deleteEthnicity`(_id int, newName varchar(45))
+create procedure `deleteEthnicity`(deleteId int, replaceId int)
 begin
   # First check if ethnicity exists
-  select id from `Ethnicity` where id = _id;
-  if (FOUND_ROWS() = 1)
+  select count(*) into @count from `Ethnicity` where id = deleteId or replaceId;
+  if (@count = 2)
   then
+    start transaction ;
     #     update member
-    update `Member` set ethinicityId = null where id = _id;
+    update `Member` set ethnicityId = replaceId where ethnicityId = deleteId;
 
-    delete from `Ethnicity` where id = _id;
+    delete from `Ethnicity` where id = deleteId;
+    commit;
   end if;
 end $$
 
@@ -95,9 +98,12 @@ end $$
 drop procedure if exists `addAgeRange` $$
 create procedure `addAgeRange`(_low int, _high int)
 begin
-  # First check if ethnicity exists
-  select id from `AgeRange` where low = _low or high = _high;
-  if (FOUND_ROWS() = 0)
+  select count(*) into @count
+  from `AgeRange`
+  where (low <= _low and _low <= high)
+     or (low <= _high and _high <= high)
+     or (_low < low and high < _high);
+  if (@count = 0)
   then
     insert into `AgeRange` (high, low)
     values (_high, _low);
@@ -108,8 +114,9 @@ drop procedure if exists `updateAgeRange` $$
 create procedure `updateAgeRange`(_id int, _low int, _high int)
 begin
   # First check if ethnicity exists
-  select id from `AgeRange` where id = _id;
-  if (FOUND_ROWS() = 1)
+  select count(*) into @count from `AgeRange` where id = _id;
+  select id into @tmp from `AgeRange` where _low = low or _high = high;
+  if (@count = 1 and found_rows() = 0)
   then
     update `AgeRange` set low = _low, high = _high where id = _id;
   end if;
@@ -126,7 +133,7 @@ end $$
 drop procedure if exists `addMembershipType` $$
 create procedure `addMembershipType`(type varchar(45))
 begin
-  select name from MembershipType where lower(type) = lower(name);
+  select name into @tmp from MembershipType where lower(type) = lower(name);
   if (found_rows() = 0)
   then
     insert into MembershipType (name)
@@ -137,10 +144,23 @@ end $$
 drop procedure if exists `updateMembershipType` $$
 create procedure `updateMembershipType`(_id int, type varchar(45))
 begin
-  select id from MembershipType where _id = id;
+  select id into @tmp from MembershipType where _id = id;
   if (found_rows() = 1)
   then
     update MembershipType set name = type where id = _id;
+  end if;
+end $$
+
+drop procedure if exists `deleteMembershipType` $$
+create procedure `deleteMembershipType`(deleteId int, replaceId int)
+begin
+  select count(*) into @count from MembershipType where deleteId = id or replaceId = id;
+  if (@count = 2)
+  then
+    start transaction ;
+    update `Membership` set membershipTypeId = replaceId where membershipTypeId = deleteId;
+    delete from `MembershipType` where id = deleteId;
+    commit;
   end if;
 end $$
 
@@ -158,8 +178,8 @@ begin
   select name from Reason where lower(type) = lower(name);
   if (found_rows() = 0)
   then
-    insert into Reason (id)
-    values (type);
+    insert into Reason (id, name)
+    values (null, type);
   end if;
 end $$
 
@@ -174,19 +194,20 @@ begin
 end $$
 
 drop procedure if exists `deleteReason` $$
-create procedure `deleteReason`(_id int)
+create procedure `deleteReason`(deleteId int, replaceId int)
 begin
-  select id from Reason where _id = id;
-  if (found_rows() = 1)
+  select count(*) into @count from Reason where deleteId = id or replaceId = id;
+  if (@count = 2)
   then
-    select id into @id from Reason where lower(name) = 'other';
     #     Update suspension reason
-    update `Suspension` set reasonId = @id where reasonId = _id;
+    start transaction ;
+    update `Suspension` set reasonId = replaceId where reasonId = deleteId;
 
     #     Update driverToMembership reason
-    update `DriverToMembership` set reasonId = @id where reasonId = _id;
+    update `DriverToMembership` set reasonId = replaceId where reasonId = deleteId;
 
-    delete from `Reason` where id = _id;
+    delete from `Reason` where id = deleteId;
+    commit;
   end if;
 end $$
 
@@ -197,6 +218,8 @@ end $$
 # ####################
 # Venue
 # ####################
+
+delimiter $$
 
 drop procedure if exists `addVenue` $$
 create procedure `addVenue`(venueName varchar(45))
@@ -225,11 +248,13 @@ begin
   select id from `Venue` where id = _id;
   if (found_rows() = 1)
   then
-    update `DriverToMembership` set venueId = null where venueId = _id;
-    update `Encounter` set venueId = null where venueId = _id;
+    start transaction ;
     delete from `Venue` where id = _id;
+    commit;
   end if;
 end $$
+
+delimiter ;
 
 # ####################
 # Venue END
@@ -239,11 +264,13 @@ end $$
 # Staff
 # ####################
 
+delimiter $$
+
 drop procedure if exists `addStaff` $$
 create procedure `addStaff`(_name varchar(45))
 begin
-  select id from `Staff` where lower(name) = lower(_name);
-  if (found_rows() = 0)
+  select count(*) into @count from `Staff` where lower(name) = lower(_name);
+  if (@count = 0)
   then
     insert into `Staff` (name)
     values (_name);
@@ -253,22 +280,13 @@ end $$
 drop procedure if exists `updateStaff` $$
 create procedure `updateStaff`(_id int, _name varchar(45))
 begin
-  select id from `Staff` where lower(name) = lower(_name);
-  if (found_rows() = 0)
-  then
-    update `Staff` set name = _name where id = _id;
-  end if;
+  update `Staff` set name = _name where id = _id;
 end $$
 
 drop procedure if exists `deleteStaff` $$
 create procedure `deleteStaff`(_id int)
 begin
-  select id from `Staff` where id = _id;
-  if (found_rows() = 1)
-  then
-    update `DriverToMembership` set staffId = null where staffId = _id;
-    delete from `Staff` where id = _id;
-  end if;
+  delete from `Staff` where id = _id;
 end $$
 
 # ####################

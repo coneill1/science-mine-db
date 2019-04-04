@@ -5,10 +5,8 @@ DELIMITER $$
 # ###########################
 
 drop procedure if exists `addMember` $$
-create procedure `addMember`(_membershipId int, first varchar(45), last varchar(45), age int, ethnicityName varchar(45),
-                             _gender enum ('male', 'female'), accommodation varchar(45), phone varchar(10),
-                             email varchar(45), company varchar(45), street varchar(45), city varchar(45),
-                             zip varchar(10), state varchar(2), out memberId int)
+create procedure `addMember`(_membershipId int, first varchar(45), last varchar(45), age int,
+                             _gender enum ('male', 'female'), ethnicityName varchar(45), out memberId int)
 begin
   if (first is not null and last is not null and age is not null and _gender is not null)
   then
@@ -18,25 +16,39 @@ begin
     if (found_rows() = 1)
     then
       #   resolve ethnicityId from ethnicity
-      select id into @ethnicityId from Ethnicity where lower(name) = lower(ethnicityName);
+      if (ethnicityName is null) then
+        set @ethnicityId = null;
+      else
+        select id into @ethnicityId from Ethnicity where lower(name) = lower(ethnicityName);
+      end if;
 
-      #   resolve specialAccommodationId from accommodation
-      select id into @accommodationId from SpecialAccommodation where lower(type) = lower(accommodation);
-
-      insert into `Member` (membershipId, firstName, lastName, ageRangeId, ethinicityId, specialAccommodationId, gender)
-      values (_membershipId, first, last, @ageRangeId, @ethnicityId, @accommodationId, _gender);
+      insert into `Member` (membershipId, firstName, lastName, ageRangeId, ethnicityId, gender)
+      values (_membershipId, first, last, @ageRangeId, @ethnicityId, _gender);
       select last_insert_id() into memberId;
-      call `addContactInformation`(memberId, phone, email, company, street, city, zip, state);
     end if;
-    else select 'Invalid Age Range';
   end if;
+end $$
+
+drop procedure if exists `addMemberSpecialAccommodation` $$
+create procedure `addMemberSpecialAccommodation`(_id int, accommodation varchar(45))
+begin
+  select count(*) into @count from Member where _id = id;
+  select id into @id from SpecialAccommodation where lower(type) = lower(accommodation);
+  if (found_rows() = 1 and @count = 1) then
+    update `Member` set specialAccommodationId = @id where id = _id;
+  end if;
+end $$
+
+drop procedure if exists `addMemberContact` $$
+create procedure `addMemberContact`(_id int, phone varchar(10), email varchar(45), company varchar(45),
+                                    street varchar(45), city varchar(45), zip varchar(10), state varchar(2))
+begin
+  call `addContactInformation`(_id, phone, email, company, street, city, zip, state);
 end $$
 
 drop procedure if exists `updateMember` $$
 create procedure `updateMember`(_id int, first varchar(45), last varchar(45), age int, ethnicityName varchar(45),
-                                _gender enum ('male', 'female'), accommodation varchar(45), phone varchar(10),
-                                email varchar(45), company varchar(45), street varchar(45), city varchar(45),
-                                zip varchar(10), state varchar(2))
+                                _gender enum ('male', 'female'))
 begin
   if (first is not null and last is not null and age is not null and _gender is not null)
   then
@@ -48,20 +60,27 @@ begin
       #   resolve ethnicityId from ethnicity
       select id into @ethnicityId from Ethnicity where lower(name) = lower(ethnicityName);
 
-      #   resolve specialAccommodationId from accommodation
-      select id into @accommodationId from SpecialAccommodation where lower(type) = lower(accommodation);
-
       update `Member`
-      set firstName              = first,
-          lastName               = last,
-          ageRangeId             = @ageRangeId,
-          ethinicityId           = @ethnicityId,
-          gender                 = _gender,
-          specialAccommodationId = @accommodationId
+      set firstName   = first,
+          lastName    = last,
+          ageRangeId  = @ageRangeId,
+          ethnicityId = @ethnicityId,
+          gender      = _gender
       where id = _id;
-      call `updateContactInformation`(_Id, phone, email, company, street, city, zip, state);
     end if;
   end if;
+end $$
+
+drop procedure if exists `deleteMember` $$
+create procedure `deleteMember`(_id int, _primaryMemberId int)
+begin
+  #   resolve ageRangeId from age - REQUIRED
+  select membershipId into @membershipId from `Member` where id = _id;
+
+  start transaction ;
+  update `Membership` set primaryMemberId = _primaryMemberId where id = @membershipId;
+  delete from `Member` where id = _id;
+  commit ;
 end $$
 
 # ###########################
@@ -76,11 +95,11 @@ drop procedure if exists `addContactInformation` $$
 create procedure `addContactInformation`(_memberId int, phone varchar(10), _email varchar(45), company varchar(45),
                                          _street varchar(45), _city varchar(45), _zip varchar(10), _state varchar(2))
 begin
-  select id from `Member` where id = _memberId;
+  select id into @id from `Member` where id = _memberId;
   if (found_rows() = 1 and (phone is not null or _email is not null))
   then
-    select memberId from `ContactInformation` where memberId = _memberId;
-    if (found_rows() = 0)
+    select count(*) into @count from `ContactInformation` where memberId = @id;
+    if (@count = 0)
     then
       insert into `ContactInformation` (memberId, phoneNumber, email, companyName, street, city, zip, state)
       values (_memberId, phone, _email, company, _street, _city, _zip, _state);
