@@ -5,86 +5,93 @@ DELIMITER $$
 # ################
 
 drop procedure if exists `addEncounter` $$
-create procedure `addEncounter`(_venueId int)
+create procedure `addEncounter`(_venueId int, date DATETIME, _name VARCHAR(45))
 begin
-  #   Ensure venueId is a valid id
-  select id from `Venue` where id = _venueId;
-  if (found_rows() = 1)
-  then
-    insert into `Encounter` (venueId, timeStamp)
-    values (_venueId, CURRENT_TIMESTAMP);
-  end if;
+    insert into `Encounter` (venueTypeId, timeStamp, name)
+    values (_venueId, date, _name);
 end $$
 
 
 drop procedure if exists `updateEncounter` $$
-create procedure `updateEncounter`(_id int, _venueId int)
+create procedure `updateEncounter`(_id int, _venueId int, date DATETIME, _name VARCHAR(45))
 begin
-  #   Ensure venueId is a valid id
-  select id from `Venue` where id = _venueId;
-  if (found_rows() = 1)
-  then
     update `Encounter`
-    set venueId = _venueId
+    set venueTypeId = _venueId,
+        timestamp   = date,
+        name        = _name
     where id = _id;
-  end if;
 end $$
 
 drop procedure if exists `deleteEncounter` $$
 create procedure `deleteEncounter`(_id int)
 begin
-  delete from `Encounter` where id = _id;
+    delete from `Encounter` where id = _id;
 end $$
 
 # ################
 # Encounter END
 # ################
 
-# ########################
-# EncounterLink
-# ########################
+# ################
+# Attendees
+# ################
 
-drop procedure if exists `addEncounterLink` $$
-create procedure `addEncounterLink`(_encounterId int, _memberId int, _attendeeTypeId int, _ageRangeId int, gender ENUM('male', 'female'))
+drop procedure if exists `addAttendees` $$
+create procedure `addAttendees`(_encounterId int, _ageRangeId int, qty int)
 begin
-  #   Ensure venueId is a valid id
-  if ((select count(*) from `Encounter` where id = _encounterId) = 1 and
-      (select count(*) from `AgeRange` where id = _ageRangeId) = 1 and
-      (select count(*) from `AttendeeType` where id = _attendeeTypeId) = 1 and
-      gender is not null)
-  then
-    insert into `EncounterLink` (encounterId, attendeeTypeId, ageRangeId, gender, memberId)
-    values (_encounterId, _attendeeTypeId, _ageRangeId, gender, _memberId);
-  end if;
+    insert into `Attendees` (encounterId, ageRangeId, quantity)
+    values (_encounterId, _ageRangeId, qty);
 end $$
 
 
-drop procedure if exists `updateEncounterLink` $$
-create procedure `updateEncounterLink`(_encounterId int, _memberId int, _attendeeTypeId int, _ageRangeId int, _gender ENUM('male', 'female'))
+drop procedure if exists `updateAttendees` $$
+create procedure `updateAttendees`(_id int, qty int)
 begin
-  #   Ensure venueId is a valid id
-  if ((select count(*) from `Encounter` where id = _encounterId) = 1 and
-      (select count(*) from `Member` where id = _memberId) = 1 and
-      (select count(*) from `AgeRange` where id = _ageRangeId) = 1 and
-      (select count(*) from `AttendeeType` where id = _attendeeTypeId) = 1 and
-      _gender is not null)
-  then
-    update `EncounterLink`
-    set attendeeTypeId = _attendeeTypeId,
-        ageRangeId = _ageRangeId,
-        gender = _gender
-    where encounterId = _encounterId and memberId = _memberId;
-  end if;
+    update `Attendees`
+    set quantity = qty
+    where id = _id;
 end $$
 
-drop procedure if exists `deleteEncounterLink` $$
-create procedure `deleteEncounterLink`(_id int)
+drop procedure if exists `deleteAttendees` $$
+create procedure `deleteAttendees`(_id int)
 begin
-  delete from `DriverToMembership` where id = _id;
+    delete from `Attendees` where id = _id;
+end $$
+
+# ################
+# Attendees END
+# ################
+
+# ########################
+# MemberEncounterLink
+# ########################
+
+drop procedure if exists `addMemberEncounterLink` $$
+create procedure `addMemberEncounterLink`(_encounterId int, _memberId int)
+begin
+    insert into `MemberEncounterLink` (encounterId, memberId)
+    values (_encounterId, _memberId);
+end $$
+
+
+drop procedure if exists `updateMemberEncounterLink` $$
+create procedure `updateMemberEncounterLink`(oldEncounterId int, newEncounterId int, oldMemberId int, newMemberId int)
+begin
+    update `MemberEncounterLink`
+    set encounterId = newEncounterId,
+        memberId    = newMemberId
+    where encounterId = oldEncounterId
+      and memberId = oldMemberId;
+end $$
+
+drop procedure if exists `deleteMemberEncounterLink` $$
+create procedure `deleteMemberEncounterLink`(_encounterId int, _memberId int)
+begin
+    delete from `MemberEncounterLink` where encounterId = _encounterId and memberId = _memberId;
 end $$
 
 # ########################
-# EncounterLink END
+# MemberEncounterLink END
 # ########################
 
 DELIMITER ;
