@@ -60,33 +60,64 @@ DELIMITER $$
 drop procedure if exists `addAgeRange` $$
 create procedure `addAgeRange`(_low int, _high int)
 begin
-    select count(*) into @count
-    from `AgeRange`
-    where (low <= _low and _low <= high)
-       or (low <= _high and _high <= high)
-       or (_low < low and high < _high);
-    if (@count = 0)
-    then
-        insert into `AgeRange` (high, low)
-        values (_high, _low);
+    start transaction ;
+    call validateAgeRange(_low, _high, null);
+    insert into `AgeRange` (high, low)
+    values (_high, _low);
+    commit;
+end $$
+
+drop procedure if exists `validateAgeRange` $$
+create procedure `validateAgeRange`(_low int, _high int, _id int)
+begin
+    if (_id is null) then
+        select count(*) into @count
+        from `AgeRange`
+        where (low <= _low and _low <= high)
+           or (low <= _high and _high <= high)
+           or (_low < low and high < _high);
+        if (@count > 0)
+        then
+            SIGNAL SQLSTATE '45000'
+                SET MESSAGE_TEXT = 'Duplicate record', MYSQL_ERRNO = 1062;
+        end if;
     ELSE
-        select 'duplicate';
+        select count(*) into @count
+        from `AgeRange`
+        where ((low <= _low and _low <= high)
+            or (low <= _high and _high <= high)
+            or (_low < low and high < _high))
+          and id != _id;
+        if (@count > 0)
+        then
+            SIGNAL SQLSTATE '45000'
+                SET MESSAGE_TEXT = 'Duplicate record', MYSQL_ERRNO = 1062;
+        end if;
     end if;
 end $$
 
 drop procedure if exists `updateAgeRange` $$
 create procedure `updateAgeRange`(_id int, _low int, _high int)
 begin
-    # First check if ethnicity exists
+    # First check if ageRange exists
     select count(*) into @count from `AgeRange` where id = _id;
-    select id into @tmp from `AgeRange` where _low = low or _high = high;
-    if (@count = 1 and found_rows() = 0)
+    if (@count = 1)
     then
+        start transaction ;
+        call validateAgeRange(_low, _high, _id);
         update `AgeRange` set low = _low, high = _high where id = _id;
-    ELSE
-        select 'not found';
+        commit;
     end if;
 end $$
+
+drop procedure if exists `deleteAgeRange` $$
+create procedure `deleteAgeRange`(_id int)
+begin
+    start transaction ;
+    delete from `AgeRange` where id = _id;
+    commit;
+end $$
+
 DELIMITER ;
 # #######################
 # AgeRange END
@@ -99,41 +130,22 @@ DELIMITER $$
 drop procedure if exists `addMembershipType` $$
 create procedure `addMembershipType`(type varchar(45))
 begin
-    select name into @tmp from MembershipType where lower(type) = lower(name);
-    if (found_rows() = 0)
-    then
-        insert into MembershipType (name)
-        values (type);
-    ELSE
-        select 'duplicate';
-    end if;
+    insert into MembershipType (name)
+    values (type);
 end $$
 
 drop procedure if exists `updateMembershipType` $$
 create procedure `updateMembershipType`(_id int, type varchar(45))
 begin
-    select id into @tmp from MembershipType where _id = id;
-    if (found_rows() = 1)
-    then
-        update MembershipType set name = type where id = _id;
-    ELSE
-        select 'not found';
-    end if;
+    update MembershipType set name = type where id = _id;
 end $$
 
 drop procedure if exists `deleteMembershipType` $$
-create procedure `deleteMembershipType`(deleteId int, replaceId int)
+create procedure `deleteMembershipType`(_id int)
 begin
-    select count(*) into @count from MembershipType where deleteId = id or replaceId = id;
-    if (@count = 2)
-    then
-        start transaction ;
-        update `Membership` set membershipTypeId = replaceId where membershipTypeId = deleteId;
-        delete from `MembershipType` where id = deleteId;
-        commit;
-    ELSE
-        select 'not found';
-    end if;
+    start transaction ;
+    delete from `MembershipType` where id = _id;
+    commit;
 end $$
 DELIMITER ;
 # ####################
@@ -147,46 +159,23 @@ DELIMITER $$
 drop procedure if exists `addReason` $$
 create procedure `addReason`(type varchar(45))
 begin
-    select name from Reason where lower(type) = lower(name);
-    if (found_rows() = 0)
-    then
-        insert into Reason (id, name)
-        values (null, type);
-    ELSE
-        select 'duplicate';
-    end if;
+    insert into Reason (id, name)
+    values (null, type);
 end $$
 
 drop procedure if exists `updateReason` $$
 create procedure `updateReason`(_id int, type varchar(45))
 begin
-    select id from Reason where _id = id;
-    if (found_rows() = 1)
-    then
-        update Reason set name = type where id = _id;
-    ELSE
-        select 'not found';
-    end if;
+    update Reason set name = type where id = _id;
 end $$
 
 drop procedure if exists `deleteReason` $$
-create procedure `deleteReason`(deleteId int, replaceId int)
+create procedure `deleteReason`(_id int)
 begin
-    select count(*) into @count from Reason where deleteId = id or replaceId = id;
-    if (@count = 2)
-    then
-        #     Update suspension reason
-        start transaction ;
-        update `Suspension` set reasonId = replaceId where reasonId = deleteId;
-
-        #     Update driverToMembership reason
-        update `DriverToMembership` set reasonId = replaceId where reasonId = deleteId;
-
-        delete from `Reason` where id = deleteId;
-        commit;
-    ELSE
-        select 'not found';
-    end if;
+    #     Update suspension reason
+    start transaction ;
+    delete from `Reason` where id = _id;
+    commit;
 end $$
 DELIMITER ;
 # ####################
@@ -202,40 +191,22 @@ delimiter $$
 drop procedure if exists `addVenueType` $$
 create procedure `addVenueType`(venueName varchar(45))
 begin
-    select id from `VenueType` where lower(name) = lower(venueName);
-    if (found_rows() = 0)
-    then
-        insert into `VenueType` (name)
-        values (venueName);
-    ELSE
-        select 'duplicate';
-    end if;
+    insert into `VenueType` (name)
+    values (venueName);
 end $$
 
 drop procedure if exists `updateVenueType` $$
 create procedure `updateVenueType`(_id int, venueName varchar(45))
 begin
-    select id from `VenueType` where id = _id;
-    if (found_rows() = 1)
-    then
-        update `VenueType` set name = venueName where id = _id;
-    ELSE
-        select 'not found';
-    end if;
+    update `VenueType` set name = venueName where id = _id;
 end $$
 
 drop procedure if exists `deleteVenueType` $$
 create procedure `deleteVenueType`(_id int)
 begin
-    select id from `VenueType` where id = _id;
-    if (found_rows() = 1)
-    then
-        start transaction ;
-        delete from `VenueType` where id = _id;
-        commit;
-    ELSE
-        select 'not found';
-    end if;
+    start transaction ;
+    delete from `VenueType` where id = _id;
+    commit;
 end $$
 
 delimiter ;
@@ -253,38 +224,20 @@ delimiter $$
 drop procedure if exists `addStaff` $$
 create procedure `addStaff`(_name varchar(45))
 begin
-    select count(*) into @count from `Staff` where lower(name) = lower(_name);
-    if (@count = 0)
-    then
-        insert into `Staff` (name)
-        values (_name);
-    ELSE
-        select 'duplicate';
-    end if;
+    insert into `Staff` (name)
+    values (_name);
 end $$
 
 drop procedure if exists `updateStaff` $$
 create procedure `updateStaff`(_id int, _name varchar(45))
 begin
-    select count(*) into @count from `Staff` where id = _id;
-    if (@count = 0)
-    then
-        delete from Staff where id = _id;
-    ELSE
-        select 'not found';
-    end if;
+    delete from Staff where id = _id;
 end $$
 
 drop procedure if exists `deleteStaff` $$
 create procedure `deleteStaff`(_id int)
 begin
-    select count(*) into @count from `Staff` where id = _id;
-    if (@count = 0)
-    then
-        delete from Staff where id = _id;
-    ELSE
-        select 'not found';
-    end if;
+    delete from Staff where id = _id;
 end $$
 
 # ####################
