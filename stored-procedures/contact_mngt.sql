@@ -5,14 +5,13 @@ DELIMITER $$
 # ###########################
 
 drop procedure if exists `addMember` $$
-create procedure `addMember`(_membershipId int, first varchar(45), last varchar(45), age int,
-                             _gender enum ('male', 'female'), ethnicityName varchar(45), out memberId int)
+create procedure `addMember`(_membershipId int, first varchar(45), last varchar(45), ageRangeLow int, ageRangeHigh int,
+                             _gender enum ('male', 'female'), ethnicityName varchar(45))
 begin
-    select id into @ageRangeId from AgeRange where high >= age and low <= age;
+    select id into @ageRangeId from AgeRange where high >= ageRangeHigh and low <= ageRangeLow;
     select id into @ethnicityId from Ethnicity where lower(name) = lower(ethnicityName);
     insert into `Member` (membershipId, firstName, lastName, ageRangeId, ethnicityId, gender)
     values (_membershipId, first, last, @ageRangeId, @ethnicityId, _gender);
-    set memberId = last_insert_id();
 end $$
 
 drop procedure if exists `addMemberSpecialAccommodation` $$
@@ -30,12 +29,12 @@ begin
 end $$
 
 drop procedure if exists `updateMember` $$
-create procedure `updateMember`(_id int, first varchar(45), last varchar(45), age int, ethnicityName varchar(45),
+create procedure `updateMember`(_id int, first varchar(45), last varchar(45), _ageRangeLow int, _ageRangeHigh int, ethnicityName varchar(45),
                                 _gender enum ('male', 'female'))
 begin
 
-    select id into @ageRangeId from AgeRange where high >= age and low <= age;
     select id into @ethnicityId from Ethnicity where lower(name) = lower(ethnicityName);
+    select id into @ageRangeId from AgeRange where low = _ageRangeLow and high = _ageRangeHigh;
 
     update `Member`
     set firstName   = first,

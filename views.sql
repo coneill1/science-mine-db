@@ -1,5 +1,6 @@
 drop view if exists MemberView;
-create view MemberView (id, firstName, lastName, ageRangeLow, ageRangeHigh, gender, ethnicity, specialAccommodation) as
+create view MemberView (id, firstName, lastName, ageRangeLow, ageRangeHigh, gender, ethnicity, specialAccommodation,
+                        membershipId) as
 select Member.id,
        firstName,
        lastName,
@@ -7,7 +8,8 @@ select Member.id,
        AR.high,
        gender,
        E.name,
-       SA.type
+       SA.type,
+       Member.membershipId
 from `Member`
          join AgeRange AR on Member.ageRangeId = AR.id
          join Ethnicity E on Member.ethnicityId = E.id
@@ -16,10 +18,10 @@ from `Member`
 
 drop view if exists MemberContactView;
 create view MemberContactView as
-select firstName,
+select C.memberId,
+       firstName,
        lastName,
-       gender,
-       C.phoneNumber,
+       C.phoneNumber as 'phone',
        C.email,
        C.street,
        C.city,
@@ -52,36 +54,36 @@ from Membership as Mship
 
 drop view if exists MembershipNoticeView;
 create view MembershipNoticeView as
-    select v.id,
-           primaryMemberFirst,
-           primaryMemberLast,
-           type as 'membershipType',
-           dateIssued
+select v.id,
+       primaryMemberFirst,
+       primaryMemberLast,
+       type as 'membershipType',
+       dateIssued
 from MembershipView as v
-join RenewalNotice;
+         join RenewalNotice;
 
 drop view if exists MembershipPeriodView;
 create view MembershipPeriodView as
-    select v.id,
-           primaryMemberFirst,
-           primaryMemberLast,
-           type as 'membershipType',
-           start,
-           end
+select v.id,
+       primaryMemberFirst,
+       primaryMemberLast,
+       type as 'membershipType',
+       start,
+       end
 from MembershipView as v
-join MembershipPeriod on v.id = MembershipPeriod.membershipId;
+         join MembershipPeriod on v.id = MembershipPeriod.membershipId;
 
 drop view if exists MembershipSuspensionView;
 create view MembershipSuspensionView as
-    select v.id,
-           v.primaryMemberFirst,
-           v.primaryMemberLast,
-           v.type as 'membershipType',
-           S.start,
-           S.end,
-           R.name as 'reason'
+select v.id,
+       v.primaryMemberFirst,
+       v.primaryMemberLast,
+       v.type as 'membershipType',
+       S.start,
+       S.end,
+       R.name as 'reason'
 from MembershipView as v
-join Suspension as S on v.id = S.membershipId
-join Reason as R on R.id = S.reasonId;
+         join Suspension as S on v.id = S.membershipId
+         join Reason as R on R.id = S.reasonId;
 
 

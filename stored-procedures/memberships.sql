@@ -9,21 +9,25 @@ begin
     start transaction ;
     call addMembership(type, active, null);
     set @membershipId = last_insert_id();
-    call addMember(@membershipId, first, last, age, _gender, ethnicityName, @memberId);
+    call addMember(@membershipId, first, last, age, _gender, ethnicityName);
+    set @memberId = last_insert_id();
     call addMembershipPeriod(@membershipId, _start, _end);
 
-    call upatedPrimaryMemberOfMembership(@membershipId, @memberId);
+    call updatePrimaryMemberOfMembership(@membershipId, @memberId);
     commit;
 end $$
 
 drop procedure if exists `updatePrimaryMemberOfMembership` $$
-create procedure `upatedPrimaryMemberOfMembership`(_id int, _memberId int)
+create procedure `updatePrimaryMemberOfMembership`(_id int, _memberId int)
 begin
-    select count(*) into @memberships from `Membership` where id = _id;
-    if (@memberships = 1) then
+    select count(*) into @count from `Member` where id = _id;
+    if (@count > 0) then
         update `Membership`
         set primaryMemberId = _memberId
         where id = _id;
+    else
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Foreign Key memberId does not reference anything', MYSQL_ERRNO = 1216;
     end if;
 end $$
 
@@ -36,6 +40,9 @@ begin
     then
         insert into `Membership` (membershipTypeId, isActive, primaryMemberId)
         values (@typeId, active, _primaryMemberId);
+    else
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Foreign Key primaryMemberId does not reference anything', MYSQL_ERRNO = 1216;
     end if;
 end $$
 
@@ -43,14 +50,17 @@ drop procedure if exists `updateMembership` $$
 create procedure `updateMembership`(_id int, type varchar(45), active bit(1), _primaryMemberId int)
 begin
     select id into @typeId from `MembershipType` where lower(name) = lower(type);
-    if (found_rows() = 1 and (select count(*) from `Membership` where id = _id) = 1 and
-        (select count(*) from Member where id = _primaryMemberId) = 1)
+    select count(*) into @count from Member where id = _primaryMemberId = 1;
+    if (@count > 0)
     then
         update `Membership`
         set membershipTypeId = @typeId,
             isActive         = active,
             primaryMemberId  = _primaryMemberId
         where id = _id;
+    else
+        signal sqlstate '45000'
+            set message_text = 'Foreign Key primaryMemberId does not reference anything', mysql_errno = 1216;
     end if;
 end $$
 
@@ -59,27 +69,19 @@ end $$
 # ###############
 
 drop procedure if exists `addIdCard` $$
-create procedure `addIdCard`(code BLOB(45), active BIT(1), _membershipId int)
+create procedure `addIdCard`(code BLOB(45), active BIT(1), _memberId int)
 begin
-    select QRCode from `IdCard` where code = QRCode;
-    if (found_rows() = 0 and (select count(*) from `Membership` where id = _membershipId) = 1)
-    then
-        insert into `IdCard` (QRCode, dateIssued, isActive, membershipId)
-        values (code, CURDATE(), active, _membershipId);
-    end if;
+    insert into `IdCard` (QRCode, dateIssued, isActive, memberId)
+    values (code, CURDATE(), active, _memberId);
 end $$
 
 # Updates the active flag for an id card
 drop procedure if exists `updateIdCard` $$
 create procedure `updateIdCard`(code BLOB(45), active BIT(1))
 begin
-    select QRCode from `IdCard` where code = QRCode;
-    if (found_rows() = 0)
-    then
-        update `IdCard`
-        set isActive = active
-        where QRCode = code;
-    end if;
+    update `IdCard`
+    set isActive = active
+    where QRCode = code;
 end $$
 
 # ###############
@@ -93,12 +95,8 @@ end $$
 drop procedure if exists `addMembershipPeriod` $$
 create procedure `addMembershipPeriod`(_membershipId int, _start DATETIME, _end DATETIME)
 begin
-    select id from `Membership` where id = _membershipId;
-    if (found_rows() = 1)
-    then
-        insert into `MembershipPeriod` (membershipId, start, end)
-        values (_membershipId, _start, _end);
-    end if;
+    insert into `MembershipPeriod` (membershipId, start, end)
+    values (_membershipId, _start, _end);
 end $$
 
 drop procedure if exists `updateMembershipPeriod` $$
@@ -129,12 +127,8 @@ end $$
 drop procedure if exists `addRenewalNotice` $$
 create procedure `addRenewalNotice`(_membershipId int)
 begin
-    select id from `Membership` where id = _membershipId;
-    if (found_rows() = 1)
-    then
-        insert into `RenewalNotice` (dateIssued, membershipId)
-        values (curdate(), _membershipId);
-    end if;
+    insert into `RenewalNotice` (dateIssued, membershipId)
+    values (curdate(), _membershipId);
 end $$
 
 drop procedure if exists `deleteRenewalNotice` $$
@@ -156,25 +150,17 @@ end $$
 drop procedure if exists `addSuspension` $$
 create procedure `addSuspension`(_membershipId int, _reasonId int)
 begin
-    select id from `Membership` where id = _membershipId;
-    if (found_rows() = 1 and (select count(*) from `Reason` where id = _reasonId) = 1)
-    then
-        insert into `Suspension` (membershipId, start, end, reasonId)
-        values (_membershipId, CURDATE(), null, _reasonId);
-    end if;
+    insert into `Suspension` (membershipId, start, end, reasonId)
+    values (_membershipId, CURDATE(), null, _reasonId);
 end $$
 
 drop procedure if exists `updateSuspension` $$
 create procedure `updateSuspension`(_id int, _end DATETIME, _reasonId int)
 begin
-    select id from `Suspension` where id = _id;
-    if (found_rows() = 1 and (select count(*) from `Reason` where id = _reasonId) = 1)
-    then
-        update `Suspension`
-        set end      = _end,
-            reasonId = _reasonId
-        where id = _id;
-    end if;
+    update `Suspension`
+    set end      = _end,
+        reasonId = _reasonId
+    where id = _id;
 end $$
 
 # ######################
@@ -202,19 +188,13 @@ drop procedure if exists `updateDriverToMembership` $$
 create procedure `updateDriverToMembership`(_id int, _membershipId int, _reasonId int, _staffId int, _venueId int,
                                             _otherReason varchar(45))
 begin
-    select id from `DriverToMembership` where id = _id;
-    if (found_rows() = 1 and (select count(*) from `Reason` where id = _reasonId) = 1 and
-        (select count(*) from `Staff` where id = _staffId) = 1 and
-        (select count(*) from `Membership` where id = _membershipId) = 1)
-    then
-        update `DriverToMembership`
-        set reasonId     = _reasonId,
-            staffId      = _staffId,
-            membershipId = _membershipId,
-            venueId      = _venueId,
-            otherReason  = _otherReason
-        where id = _id;
-    end if;
+    update `DriverToMembership`
+    set reasonId     = _reasonId,
+        staffId      = _staffId,
+        membershipId = _membershipId,
+        venueId      = _venueId,
+        otherReason  = _otherReason
+    where id = _id;
 end $$
 
 # ######################
