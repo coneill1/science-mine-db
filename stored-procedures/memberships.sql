@@ -7,14 +7,22 @@ create procedure `createMembership`(type varchar(45), active bit(1), _start date
                                     ethnicityName varchar(45))
 begin
     start transaction ;
-    call addMembership(type, active, null);
-    set @membershipId = last_insert_id();
-    call addMember(@membershipId, first, last, age, _gender, ethnicityName);
+    call addMember(null, first, last, age, age, _gender, ethnicityName);
     set @memberId = last_insert_id();
+    call addMembership(type, active, @memberId);
+    set @membershipId = last_insert_id();
     call addMembershipPeriod(@membershipId, _start, _end);
 
-    call updatePrimaryMemberOfMembership(@membershipId, @memberId);
+    call updateMemberMembership(@memberId, @membershipId);
     commit;
+end $$
+
+drop procedure if exists `updateMemberMembership` $$
+create procedure `updateMemberMembership`(_id int, _membershipId int)
+begin
+    update `Member`
+    set membershipId = _membershipId
+    where id = _id;
 end $$
 
 drop procedure if exists `updatePrimaryMemberOfMembership` $$
@@ -31,12 +39,12 @@ begin
     end if;
 end $$
 
-
 drop procedure if exists `addMembership` $$
 create procedure `addMembership`(type varchar(45), active bit(1), _primaryMemberId int)
 begin
     select id into @typeId from `MembershipType` where lower(name) = lower(type);
-    if (found_rows() = 1)
+    select count(*) into @count from Member where id = _primaryMemberId;
+    if (@count = 1)
     then
         insert into `Membership` (membershipTypeId, isActive, primaryMemberId)
         values (@typeId, active, _primaryMemberId);

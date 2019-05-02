@@ -2,6 +2,8 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
+use SM_Membership;
+
 -- -----------------------------------------------------
 -- Table `MembershipType`
 -- -----------------------------------------------------
@@ -149,8 +151,6 @@ CREATE TABLE IF NOT EXISTS `ContactInformation` (
   `state` VARCHAR(2) NULL,
   PRIMARY KEY (`memberId`),
   UNIQUE INDEX `Id_UNIQUE` (`memberId` ASC),
-  UNIQUE INDEX `phoneNumber_UNIQUE` (`phoneNumber` ASC),
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC),
   CONSTRAINT `contact_to_member_fk`
     FOREIGN KEY (`memberId`)
     REFERENCES `Member` (`id`)
@@ -432,13 +432,11 @@ INSERT INTO `SpecialAccommodation` (`id`, `type`) VALUES (10001, 'None');
 
 COMMIT;
 
-
 -- -----------------------------------------------------
--- Data for table `Member`
+-- Data for table `MembershipType`
 -- -----------------------------------------------------
 START TRANSACTION;
-INSERT INTO `Member` (`id`, `membershipId`, `firstName`, `lastName`, `ageRangeId`, `ethnicityId`, `specialAccommodationId`, `gender`) VALUES (DEFAULT, NULL, 'Chris', 'ONeill', 1, DEFAULT, DEFAULT, 'male');
-INSERT INTO `Member` (`id`, `membershipId`, `firstName`, `lastName`, `ageRangeId`, `ethnicityId`, `specialAccommodationId`, `gender`) VALUES (DEFAULT, NULL, 'Phil', 'Curtiss', 1, DEFAULT, DEFAULT, 'male');
+INSERT INTO `MembershipType` (`id`, `name`) VALUES (10001, 'Annual');
 
 COMMIT;
 
